@@ -74,7 +74,6 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ ease: "linear", type: "spring" }}
           >
             <Image
               className="relative mx-auto w-[200px] h-[200px]"
