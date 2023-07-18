@@ -1,0 +1,9 @@
+{
+  "name": "oppenheimer",
+  "short_name": "oppenheimer",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/"
+}

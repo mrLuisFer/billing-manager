@@ -1,113 +1,187 @@
-import Image from 'next/image'
+"use client";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
+interface ISlider {
+  src: string;
+  title: string;
+  description?: string;
+}
+
+const welcomeSlider = [
+  {
+    src: "/assets/welcome/first.svg",
+    title: "Diversificación del riesgo",
+    description:
+      "Reduce la vulnerabilidad y maximiza tu potencial de ganancias",
+  },
+  {
+    src: "/assets/welcome/second.svg",
+    title: "Inversiones inteligentes",
+    description: "La clave para construir riqueza a largo plazo",
+  },
+  {
+    src: "/assets/welcome/third.svg",
+    title: "Presupuesto eficiente",
+    description: "Controla tus gastos y alcanza tus metas financieras",
+  },
+];
 
 export default function Home() {
+  const [sliderIndex, setSliderIndex] = useState(0);
+  const [activeSlider, setActiveSlider] = useState<ISlider>(
+    welcomeSlider[sliderIndex]
+  );
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    setActiveSlider(welcomeSlider[sliderIndex]);
+
+    const params = Number(searchParams.get("params"));
+    const validateParams: boolean | 0 = params && params <= 2 && params >= 0;
+    if (validateParams) {
+      setSliderIndex(params);
+    }
+  }, [searchParams, sliderIndex]);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main>
+      <section className="bg-black h-screen overflow-x-hidden">
+        <div
+          className={`h-fit relative rounded-b-[150px] pt-[70px] pb-5
+	${sliderIndex === 0 ? "bg-orange-300" : ""}
+	${sliderIndex === 1 ? "bg-orange-400" : ""}
+	${sliderIndex === 2 ? "bg-yellow-300" : ""}
+	`}
+        >
+          <motion.a
+            initial={{
+              opacity: 0,
+              y: -100,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            href="/auth/login"
+            className="w-fit no-underline select-none flex text-black items-center justify-center border-2 border-black absolute top-5 mx-auto left-0 right-0 rounded-xl p-0.5 px-4 hover:bg-neutral-950 hover:text-inherit transition"
           >
-            By{' '}
+            Tap para iniciar sesion
+          </motion.a>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ ease: "linear", type: "spring" }}
+          >
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
+              className="relative mx-auto w-[200px] h-[200px]"
+              src={activeSlider.src}
+              alt={activeSlider.title}
+              width={200}
+              height={200}
               priority
             />
-          </a>
+          </motion.div>
+          <div className="flex items-center justify-center mt-6 gap-4">
+            {welcomeSlider.map(({ src, title }, i) => (
+              <motion.div
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                key={src}
+                className={`w-3  h-3 rounded-full cursor-pointer transition ${
+                  sliderIndex === i ? "bg-black" : "bg-neutral-200 opacity-70"
+                }`}
+                onClick={() => {
+                  setSliderIndex(i);
+                  router.push(`/?params=${i}`);
+                }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+        <div className="text-white pt-6 px-6 flex flex-col items-center gap-6 h-fit">
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="leading-7 text-2xl"
+          >
+            {activeSlider.title}
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center max-w-xs"
+          >
+            {activeSlider.description}
+          </motion.p>
+          <button
+            className={`border-2 transition border-t-yellow-300
+			 ${sliderIndex === 1 ? "border-r-yellow-300 border-b-yellow-300" : ""} 
+			 ${sliderIndex === 2 ? "border-yellow-300" : ""} 
+			 transition w-fit h-fit rounded-full p-5 mx-auto active:scale-95`}
+            onClick={() => {
+              if (sliderIndex < welcomeSlider.length - 1) {
+                setSliderIndex(sliderIndex + 1);
+                router.push(`/?params=${sliderIndex + 1}`);
+              } else {
+                router.push("/auth/register");
+              }
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="bg-yellow-300 p-2 rounded-full flex items-center justify-center gap-2"
+            >
+              {sliderIndex === 2 && (
+                <motion.p
+                  initial={{
+                    opacity: 0,
+                    x: 20,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                  }}
+                  className="text-black font-bold"
+                >
+                  Registrate
+                </motion.p>
+              )}
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 50 50"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M31.7469 33.5C31.5166 33.7146 31.3319 33.9733 31.2038 34.2608C31.0757 34.5483 31.0068 34.8587 31.0013 35.1734C30.9957 35.4881 31.0536 35.8007 31.1715 36.0925C31.2894 36.3843 31.4648 36.6494 31.6874 36.872C31.9099 37.0946 32.175 37.27 32.4669 37.3879C32.7587 37.5058 33.0713 37.5637 33.386 37.5581C33.7007 37.5526 34.0111 37.4837 34.2986 37.3556C34.5861 37.2275 34.8448 37.0428 35.0594 36.8125L45.2156 26.6563L46.875 25L45.2188 23.3438L35.0625 13.1875C34.6207 12.7604 34.0287 12.5238 33.4142 12.5289C32.7997 12.5339 32.2117 12.7801 31.777 13.2145C31.3422 13.6488 31.0954 14.2366 31.0898 14.8511C31.0842 15.4656 31.3201 16.0578 31.7469 16.5L37.9031 22.6563H5.46875C4.84715 22.6563 4.25101 22.9032 3.81147 23.3427C3.37193 23.7823 3.125 24.3784 3.125 25C3.125 25.6216 3.37193 26.2177 3.81147 26.6573C4.25101 27.0968 4.84715 27.3438 5.46875 27.3438H37.9031L31.7469 33.5Z"
+                  fill="black"
+                />
+              </svg>
+            </motion.div>
+          </button>
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <p className="text-center text-sm mt-auto">
+              Ya tienes una cuenta?{" "}
+              <a href="/auth/login" className="text-yellow-200">
+                Inicia sesion
+              </a>
+            </p>
+          </motion.div>
+        </div>
+      </section>
     </main>
-  )
+  );
 }
