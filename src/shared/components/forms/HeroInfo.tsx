@@ -13,7 +13,7 @@ export default function HeroInfo({
   loading?: boolean;
 }) {
   return (
-    <div className="flex justify-center items-center flex-col gap-4 pt-6">
+    <div className="flex justify-center items-center flex-col gap-4 pt-9">
       <motion.div
         initial={{
           opacity: 0,

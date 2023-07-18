@@ -51,7 +51,7 @@ export default function Home() {
     <main>
       <section className="bg-black h-screen overflow-x-hidden">
         <div
-          className={`h-fit relative rounded-b-[150px] pt-[70px] pb-5
+          className={`h-fit relative rounded-b-[150px] pt-[80px] pb-8
 	${sliderIndex === 0 ? "bg-orange-300" : ""}
 	${sliderIndex === 1 ? "bg-orange-400" : ""}
 	${sliderIndex === 2 ? "bg-yellow-300" : ""}

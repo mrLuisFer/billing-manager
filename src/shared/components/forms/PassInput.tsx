@@ -3,6 +3,12 @@ import { UseFormRegister } from "react-hook-form";
 import InputHightlight from "./InputHightlight";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function PassInput({
   register,
@@ -21,29 +27,35 @@ export default function PassInput({
         ...register("password"),
       }}
     >
-      <motion.div
-        initial={{
-          x: 20,
-          opacity: 0,
-        }}
-        animate={{
-          x: 0,
-          opacity: 1,
-        }}
-      >
-        <motion.button
-          whileTap={{
-            scale: 0.95,
-          }}
-          whileHover={{
-            scale: 0.95,
-          }}
-          type="button"
-          onClick={() => setShowPassword(!showPassword)}
-        >
-          {showPassword ? "🫣" : "👀"}
-        </motion.button>
-      </motion.div>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <motion.button
+              initial={{
+                x: 20,
+                opacity: 0,
+              }}
+              animate={{
+                x: 0,
+                opacity: 1,
+              }}
+              whileTap={{
+                scale: 0.95,
+              }}
+              whileHover={{
+                scale: 0.95,
+              }}
+              onClick={() => setShowPassword(!showPassword)}
+              type="button"
+            >
+              {showPassword ? "🫣" : "👀"}
+            </motion.button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Mostrar contraseña</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </InputHightlight>
   );
 }

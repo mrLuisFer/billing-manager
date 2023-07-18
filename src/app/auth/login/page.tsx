@@ -49,12 +49,12 @@ export default function LoginPage() {
     if (loginData) {
       setLoading(false);
       console.log(loginData);
-      router.push("/dashboard");
+      router.push("/u");
     }
   };
 
   return (
-    <section className="bg-black min-h-screen flex flex-col items-center pt-5">
+    <section className="bg-black min-h-screen flex flex-col items-center pt-8">
       <GoBackLink />
       <HeroInfo
         image={"/assets/login/float_logo.svg"}

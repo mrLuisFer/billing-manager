@@ -64,7 +64,7 @@ export default function RegisterPage() {
 
   return (
     <main>
-      <section className="bg-black min-h-screen flex flex-col items-center pt-5">
+      <section className="bg-black min-h-screen flex flex-col items-center pt-8">
         <GoBackLink />
         <HeroInfo
           loading={loading}

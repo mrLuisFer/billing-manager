@@ -11,7 +11,7 @@ export default function FormActions({
   const router = useRouter();
 
   return (
-    <div>
+    <div className="flex flex-col gap-2 items-center pt-4">
       {isLogin ? (
         <motion.button
           initial={{
