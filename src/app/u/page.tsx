@@ -3,7 +3,7 @@
 import supabase from '@/lib/supabase';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import Tabs from '@/app/u/components/content/Tabs';
+import Tabs from '@/app/u/components/Content/Tabs';
 import { useRouter } from 'next/navigation';
 import Spinner from '@/components/Spinner';
 import useSessionStore from '@/store/useSessionStore';
