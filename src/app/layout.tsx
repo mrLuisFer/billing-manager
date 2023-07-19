@@ -1,27 +1,17 @@
-import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import LayoutProvider from "@/components/LayoutProvider";
+import buildMetadata from "@/helper/buildMetadata";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "App",
-  description: "",
-};
+export const metadata: Metadata = buildMetadata({
+  title: "Home",
+  description: "Home page",
+});
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html lang="en">
-      <body className={inter.className} suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+  return <LayoutProvider>{children}</LayoutProvider>;
 }
