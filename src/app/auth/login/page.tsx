@@ -7,15 +7,18 @@ import GoBackLink from '@/shared/components/forms/GoBackLink';
 import HeroInfo from '@/shared/components/forms/HeroInfo';
 import EmailInput from '@/shared/components/forms/EmailInput';
 import PassInput from '@/shared/components/forms/PassInput';
-import { AiOutlineLoading } from 'react-icons/ai';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { RegisterSchema, registerSchema } from '@/types/register/formSchema';
+import {
+  LoginSchema,
+  loginSchema as loginFormSchema,
+} from '@/types/register/formSchema';
 import FormActions from '@/shared/components/forms/FormActions';
 import supabase from '@/lib/supabase';
+import Spinner from '@/components/Spinner';
 
-const loginSchema = yup.object().shape(registerSchema);
+const loginSchema = yup.object().shape(loginFormSchema);
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
@@ -25,7 +28,7 @@ export default function LoginPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterSchema>({
+  } = useForm<LoginSchema>({
     resolver: yupResolver(loginSchema),
     defaultValues: {
       email: '',
@@ -33,7 +36,7 @@ export default function LoginPage() {
     },
   });
 
-  const handleLoginForm = async (data: RegisterSchema) => {
+  const handleLoginForm = async (data: LoginSchema) => {
     setLoading(true);
     const { email, password } = data;
     const { data: loginData, error } = await supabase.auth.signInWithPassword({
@@ -63,14 +66,7 @@ export default function LoginPage() {
         onSubmit={handleSubmit(handleLoginForm)}
       >
         {loading ? (
-          <motion.div
-            className="text-4xl animate-spin transition"
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0 }}
-          >
-            <AiOutlineLoading />
-          </motion.div>
+          <Spinner />
         ) : (
           <>
             <EmailInput register={register} />

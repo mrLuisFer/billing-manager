@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { PiCardholderThin } from 'react-icons/pi';
+import { createPortal } from 'react-dom';
 import Card from './Card';
 import { ICreditCard } from './creditCard';
+import AddCard from './AddCard';
 
 export default function ContentCards() {
+  const [isAddingCard, setIsAddingCard] = useState(false);
   const [activeCards] = useState<ICreditCard[]>([
     {
       id: '1',
@@ -44,12 +47,19 @@ export default function ContentCards() {
           scale: 0.95,
         }}
         className="flex items-center w-full justify-between bg-[var(--primary-dark)] hover:bg-black transition py-2 px-4 rounded-xl hover:brightness-110 mt-4"
+        onClick={() => setIsAddingCard(true)}
       >
         <motion.p>Agregar tarjeta</motion.p>
         <motion.div>
           <PiCardholderThin size="1.5rem" />
         </motion.div>
       </motion.button>
+      {isAddingCard &&
+        typeof window !== 'undefined' &&
+        createPortal(
+          <AddCard setIsAddingCard={setIsAddingCard} />,
+          document.body,
+        )}
     </motion.div>
   );
 }

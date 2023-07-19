@@ -1,52 +1,51 @@
 'use client';
 
 import supabase from '@/lib/supabase';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import Tabs from '@/app/u/components/Content/Tabs';
+import Tabs from '@/app/u/components/content/Tabs';
+import { useRouter } from 'next/navigation';
+import Spinner from '@/components/Spinner';
+import useSessionStore from '@/store/useSessionStore';
 import HomeHeader from './components/header';
 import ContentCards from './components/creditCards/ContentCards';
+import Balance from './components/balance';
 
 export default function UPage() {
+  const { session, setSession } = useSessionStore((state) => state);
+  const router = useRouter();
+  const [isLoadingUser, setIsLoadingUser] = useState<boolean>(false);
+
   useEffect(() => {
     (async () => {
-      const useResponse = await supabase.auth.getUser();
+      setIsLoadingUser(true);
       const sessionResponse = await supabase.auth.getSession();
 
-      return { useResponse, sessionResponse };
+      if (sessionResponse.error) {
+        await supabase.auth.signOut();
+        router.push('/auth/login');
+        return;
+      }
+
+      const currentSession = sessionResponse.data.session;
+      if (currentSession) {
+        setIsLoadingUser(false);
+        setSession(currentSession);
+      }
     })();
-  }, []);
+  }, [router, setSession]);
+
+  console.log({ session });
+
+  if (isLoadingUser) {
+    return <Spinner />;
+  }
 
   return (
     <main className="pb-10">
       <HomeHeader />
       <motion.section className="px-4 pt-6">
-        <motion.div>
-          <motion.p
-            className="text-neutral-500 text-sm"
-            initial={{
-              opacity: 0,
-              x: -50,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-            }}
-          >
-            Balance Total
-          </motion.p>
-          <motion.h1
-            className="text-3xl font-bold pt-2"
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-          >
-            $ 0.00
-          </motion.h1>
-        </motion.div>
+        <Balance id={session?.user.id!} />
         <ContentCards />
         <Tabs />
       </motion.section>

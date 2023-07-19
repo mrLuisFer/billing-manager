@@ -1,4 +1,3 @@
-import { RegisterSchema } from '@/types/register/formSchema';
 import { UseFormRegister } from 'react-hook-form';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -10,10 +9,14 @@ import {
 } from '@/components/ui/tooltip';
 import InputHightlight from './InputHightlight';
 
+/**
+ * @param {Object} props
+ * @param {UseFormRegister<RegisterSchema | LoginSchema>} props.register
+ */
 export default function PassInput({
   register,
 }: {
-  register: UseFormRegister<RegisterSchema>;
+  register: UseFormRegister<any>;
 }) {
   const [showPassword, setShowPassword] = useState(false);
 

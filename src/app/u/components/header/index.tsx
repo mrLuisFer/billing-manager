@@ -2,9 +2,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { BsArrowUpRight } from 'react-icons/bs';
 import { motion } from 'framer-motion';
 import { MotionLink } from '@/shared/components/Motion';
+import useSessionStore from '@/store/useSessionStore';
 import MenuActions from './MenuActions';
 
 export default function HomeHeader() {
+  const session = useSessionStore((state) => state.session);
+  const userName = session?.user.user_metadata.name;
+  const shortName = userName?.split('')[0];
+
   return (
     <header className="p-4 flex justify-between items-center">
       <MotionLink
@@ -19,7 +24,7 @@ export default function HomeHeader() {
       >
         <Avatar>
           <AvatarImage src="https://github.com/mrluisfer.png" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>{shortName}</AvatarFallback>
         </Avatar>
         <motion.div
           initial={{
@@ -30,7 +35,7 @@ export default function HomeHeader() {
           }}
           className="flex items-center gap-2"
         >
-          <span>Luis</span>
+          {userName && <span className="capitalize">{userName}</span>}
           <BsArrowUpRight size="0.9rem" />
         </motion.div>
       </MotionLink>
