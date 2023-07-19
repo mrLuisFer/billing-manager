@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import * as yup from 'yup';
 
 export interface RegisterSchema {
   email: string;
@@ -8,10 +8,10 @@ export interface RegisterSchema {
 export const registerSchema = {
   email: yup
     .string()
-    .email("Por favor, ingrese un correo electrónico válido")
-    .required("El correo electrónico es requerido"),
+    .email('Por favor, ingrese un correo electrónico válido')
+    .required('El correo electrónico es requerido'),
   password: yup
     .string()
-    .min(8, "La contraseña debe tener al menos 8 caracteres")
-    .required("La contraseña es requerida"),
+    .min(8, 'La contraseña debe tener al menos 8 caracteres')
+    .required('La contraseña es requerida'),
 };

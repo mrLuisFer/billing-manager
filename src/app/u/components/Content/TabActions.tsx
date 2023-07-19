@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
-import { TbArrowMoveUp } from "react-icons/tb";
+import { motion } from 'framer-motion';
+import { TbArrowMoveUp } from 'react-icons/tb';
 
-const iconSize = "1.3rem";
+const iconSize = '1.3rem';
 export default function TabActions() {
   return (
     <motion.div

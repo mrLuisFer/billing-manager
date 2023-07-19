@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import GoBackLink from "@/shared/components/forms/GoBackLink";
-import HeroInfo from "@/shared/components/forms/HeroInfo";
-import EmailInput from "@/shared/components/forms/EmailInput";
-import PassInput from "@/shared/components/forms/PassInput";
-import { AiOutlineLoading } from "react-icons/ai";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { RegisterSchema, registerSchema } from "@/types/register/formSchema";
-import FormActions from "@/shared/components/forms/FormActions";
-import supabase from "@/lib/supabase";
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import GoBackLink from '@/shared/components/forms/GoBackLink';
+import HeroInfo from '@/shared/components/forms/HeroInfo';
+import EmailInput from '@/shared/components/forms/EmailInput';
+import PassInput from '@/shared/components/forms/PassInput';
+import { AiOutlineLoading } from 'react-icons/ai';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { RegisterSchema, registerSchema } from '@/types/register/formSchema';
+import FormActions from '@/shared/components/forms/FormActions';
+import supabase from '@/lib/supabase';
 
 const loginSchema = yup.object().shape(registerSchema);
 
@@ -28,8 +28,8 @@ export default function LoginPage() {
   } = useForm<RegisterSchema>({
     resolver: yupResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
@@ -45,7 +45,7 @@ export default function LoginPage() {
       return;
     }
     if (loginData) {
-      router.push("/u");
+      router.push('/u');
       setLoading(false);
     }
   };

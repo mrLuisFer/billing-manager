@@ -1,4 +1,4 @@
-import { MotionLink } from "../Motion";
+import { MotionLink } from '../Motion';
 
 export default function GoBackLink() {
   return (

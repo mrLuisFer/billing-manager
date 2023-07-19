@@ -1,22 +1,22 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { PiCardholderThin } from "react-icons/pi";
-import Card from "./Card";
-import { ICreditCard } from "./creditCard";
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { PiCardholderThin } from 'react-icons/pi';
+import Card from './Card';
+import { ICreditCard } from './creditCard';
 
 export default function ContentCards() {
   const [activeCards] = useState<ICreditCard[]>([
     {
-      id: "1",
-      name: "Luis",
-      cardNumber: "**** **** **** 1234",
-      type: "visa",
+      id: '1',
+      name: 'Luis',
+      cardNumber: '**** **** **** 1234',
+      type: 'visa',
     },
     {
-      id: "2",
-      name: "Fer",
-      cardNumber: "**** **** **** 9878",
-      type: "visa",
+      id: '2',
+      name: 'Fer',
+      cardNumber: '**** **** **** 9878',
+      type: 'visa',
     },
   ]);
 
@@ -30,15 +30,15 @@ export default function ContentCards() {
         Tarjetas activas:
       </motion.h2>
       <motion.div className="flex gap-6 overflow-x-scroll flex-nowrap pb-6">
-        {!(activeCards.length === 0) &&
-          activeCards.map((card) => <Card card={card} key={card.id} />)}
+        {!(activeCards.length === 0)
+          && activeCards.map((card) => <Card card={card} key={card.id} />)}
       </motion.div>
       <motion.button
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         whileTap={{
           scale: 0.95,
-          backgroundColor: "#000000",
+          backgroundColor: '#000000',
         }}
         whileHover={{
           scale: 0.95,

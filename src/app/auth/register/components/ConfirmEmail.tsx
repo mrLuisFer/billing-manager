@@ -1,8 +1,8 @@
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { useRef } from "react";
-import { MotionLink } from "@/shared/components/Motion";
-import GoBackLink from "../../../../shared/components/forms/GoBackLink";
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { MotionLink } from '@/shared/components/Motion';
+import GoBackLink from '../../../../shared/components/forms/GoBackLink';
 
 export default function ConfirmEmail() {
   const imgContainer = useRef(null);

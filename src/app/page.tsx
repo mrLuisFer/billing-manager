@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { MotionLink } from "@/shared/components/Motion";
+import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { MotionLink } from '@/shared/components/Motion';
 
 interface ISlider {
   src: string;
@@ -14,20 +14,20 @@ interface ISlider {
 
 const welcomeSlider = [
   {
-    src: "/assets/welcome/first.svg",
-    title: "Diversificación del riesgo",
+    src: '/assets/welcome/first.svg',
+    title: 'Diversificación del riesgo',
     description:
-      "Reduce la vulnerabilidad y maximiza tu potencial de ganancias",
+      'Reduce la vulnerabilidad y maximiza tu potencial de ganancias',
   },
   {
-    src: "/assets/welcome/second.svg",
-    title: "Inversiones inteligentes",
-    description: "La clave para construir riqueza a largo plazo",
+    src: '/assets/welcome/second.svg',
+    title: 'Inversiones inteligentes',
+    description: 'La clave para construir riqueza a largo plazo',
   },
   {
-    src: "/assets/welcome/third.svg",
-    title: "Presupuesto eficiente",
-    description: "Controla tus gastos y alcanza tus metas financieras",
+    src: '/assets/welcome/third.svg',
+    title: 'Presupuesto eficiente',
+    description: 'Controla tus gastos y alcanza tus metas financieras',
   },
 ];
 
@@ -42,7 +42,7 @@ export default function Home() {
   useEffect(() => {
     setActiveSlider(welcomeSlider[sliderIndex]);
 
-    const params = Number(searchParams.get("params"));
+    const params = Number(searchParams.get('params'));
     const validateParams: boolean | 0 = params && params <= 2 && params >= 0;
     if (validateParams) {
       setSliderIndex(params);
@@ -53,11 +53,11 @@ export default function Home() {
     <main>
       <section className="bg-black h-screen overflow-x-hidden">
         <div
-          className={`h-fit relative rounded-b-[150px] pt-[80px] pb-8
-	${sliderIndex === 0 ? "bg-orange-300" : ""}
-	${sliderIndex === 1 ? "bg-orange-400" : ""}
-	${sliderIndex === 2 ? "bg-yellow-300" : ""}
-	`}
+          className={`h-fit relative rounded-b-[150px] pt-[80px] pb-8 ${
+            sliderIndex === 0 ? 'bg-orange-300' : ''
+          } ${sliderIndex === 1 ? 'bg-orange-400' : ''} ${
+            sliderIndex === 2 ? 'bg-yellow-300' : ''
+          }`}
         >
           <MotionLink
             initial={{
@@ -95,7 +95,7 @@ export default function Home() {
                 animate={{ scale: 1 }}
                 key={src}
                 className={`w-3  h-3 rounded-full cursor-pointer transition ${
-                  sliderIndex === i ? "bg-black" : "bg-neutral-200 opacity-70"
+                  sliderIndex === i ? 'bg-black' : 'bg-neutral-200 opacity-70'
                 }`}
                 href={`/?params=${i}`}
                 onClick={() => {
@@ -122,16 +122,17 @@ export default function Home() {
           </motion.p>
           <button
             type="button"
-            className={`border-2 transition border-t-yellow-300
-			 ${sliderIndex === 1 ? "border-r-yellow-300 border-b-yellow-300" : ""} 
-			 ${sliderIndex === 2 ? "border-yellow-300" : ""} 
-			 transition w-fit h-fit rounded-full p-5 mx-auto active:scale-95`}
+            className={`border-2 transition border-t-yellow-300 ${
+              sliderIndex === 1 ? 'border-r-yellow-300 border-b-yellow-300' : ''
+            }  ${
+              sliderIndex === 2 ? 'border-yellow-300' : ''
+            }  transition w-fit h-fit rounded-full p-5 mx-auto active:scale-95`}
             onClick={() => {
               if (sliderIndex < welcomeSlider.length - 1) {
                 setSliderIndex(sliderIndex + 1);
                 router.push(`/?params=${sliderIndex + 1}`);
               } else {
-                router.push("/auth/register");
+                router.push('/auth/register');
               }
             }}
           >
@@ -175,8 +176,8 @@ export default function Home() {
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <p className="text-center text-sm mt-auto">
-              Ya tienes una cuenta?{" "}
+            <p className="text-center gap-1 text-sm mt-auto">
+              Ya tienes una cuenta?
               <a href="/auth/login" className="text-yellow-200">
                 Inicia sesion
               </a>
