@@ -7,12 +7,13 @@ import * as yup from 'yup';
 import { RegisterSchema, registerSchema } from '@/types/register/formSchema';
 import { motion } from 'framer-motion';
 import supabase from '@/lib/supabase';
-import { AiOutlineLoading } from 'react-icons/ai';
+import { AiOutlineLoading, AiOutlineUser } from 'react-icons/ai';
 import EmailInput from '@/shared/components/forms/EmailInput';
 import GoBackLink from '@/shared/components/forms/GoBackLink';
 import HeroInfo from '@/shared/components/forms/HeroInfo';
 import PassInput from '@/shared/components/forms/PassInput';
 import FormActions from '@/shared/components/forms/FormActions';
+import InputHightlight from '@/shared/components/forms/InputHightlight';
 import ConfirmEmail from './components/ConfirmEmail';
 
 const schema: yup.ObjectSchema<RegisterSchema> = yup
@@ -31,27 +32,47 @@ export default function RegisterPage() {
     defaultValues: {
       email: '',
       password: '',
+      name: '',
     },
   });
 
   const handleRegisterForm = async (data: RegisterSchema) => {
     setLoading(true);
-    const { email, password } = data;
-    if (!email || !password) {
+    const { email, password, name } = data;
+    if (!email || !password || !name) {
       return;
     }
+
+    const formattedName: string = name.trim().replace(/\s+/g, '_');
 
     const { data: registerData, error } = await supabase.auth.signUp({
       email: email.toLowerCase(),
       password,
+      options: {
+        data: {
+          name: formattedName,
+        },
+      },
     });
+
     if (error) {
       return;
     }
-
     if (registerData) {
-      setLoading(false);
       setFormSent(true);
+      const updateUserNameResponse = await supabase
+        .from('users')
+        .update({
+          name: formattedName,
+        })
+        .eq('id', registerData.user?.id);
+
+      if (updateUserNameResponse.error) {
+        return;
+      }
+      if (updateUserNameResponse.data) {
+        setLoading(false);
+      }
     }
   };
 
@@ -84,6 +105,14 @@ export default function RegisterPage() {
             </motion.div>
           ) : (
             <>
+              <InputHightlight
+                icon={<AiOutlineUser size="1.5rem" />}
+                name="username"
+                inputProps={{
+                  ...register('name'),
+                  placeholder: 'john_doe',
+                }}
+              />
               <EmailInput register={register} />
               <PassInput register={register} />
               {(errors.email || errors.password) && (

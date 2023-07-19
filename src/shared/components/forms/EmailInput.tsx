@@ -1,12 +1,15 @@
 import React from 'react';
-import { RegisterSchema } from '@/types/register/formSchema';
 import { UseFormRegister } from 'react-hook-form';
 import InputHightlight from './InputHightlight';
 
+/**
+ * @param {Object} props
+ * @param {UseFormRegister<RegisterSchema | LoginSchema>} props.register
+ */
 export default function EmailInput({
   register,
 }: {
-  register: UseFormRegister<RegisterSchema>;
+  register: UseFormRegister<any>;
 }) {
   return (
     <InputHightlight

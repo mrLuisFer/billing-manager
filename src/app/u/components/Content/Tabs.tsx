@@ -21,7 +21,7 @@ export default function Tabs() {
       animate={{
         opacity: 1,
       }}
-      className="bg-white h-auto mt-6 rounded-2xl text-black p-4"
+      className="bg-white h-auto mt-6 rounded-2xl text-black px-4 pt-4 pb-5"
     >
       <motion.div className="flex items-center justify-between">
         <motion.ul className="flex gap-2 items-center rounded-xl w-full">

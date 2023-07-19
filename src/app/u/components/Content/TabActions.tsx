@@ -5,7 +5,7 @@ const iconSize = '1.3rem';
 export default function TabActions() {
   return (
     <motion.div
-      className="mt-6"
+      className="mt-6 flex items-center justify-end"
       initial={{
         opacity: 0,
         y: 50,
@@ -16,7 +16,7 @@ export default function TabActions() {
       }}
     >
       <motion.button
-        className="flex items-center justify-center bg-black w-fit py-1 px-2 rounded-lg text-white"
+        className="flex items-center justify-center bg-black w-fit p-2 rounded-lg text-white"
         whileTap={{
           scale: 0.9,
         }}
