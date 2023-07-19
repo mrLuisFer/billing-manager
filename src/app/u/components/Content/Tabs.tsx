@@ -1,16 +1,16 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { BsQuestionLg } from "react-icons/bs";
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { BsQuestionLg } from 'react-icons/bs';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import TabContent from "./TabContent";
-import TabActions from "./TabActions";
+} from '@/components/ui/popover';
+import TabContent from './TabContent';
+import TabActions from './TabActions';
 
 export default function Tabs() {
-  const [tabList] = useState<string[]>(["Suscripciones", "Movimientos"]);
+  const [tabList] = useState<string[]>(['Suscripciones', 'Movimientos']);
   const [activeTab, setActiveTab] = useState(tabList[0]);
 
   return (
@@ -45,8 +45,8 @@ export default function Tabs() {
                 onClick={() => setActiveTab(tabName)}
                 className={`p-2 rounded-lg  transition ${
                   activeTab === tabName
-                    ? "bg-black text-white"
-                    : "bg-transparent text-black"
+                    ? 'bg-black text-white'
+                    : 'bg-transparent text-black'
                 }`}
               >
                 {tabName}

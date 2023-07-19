@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { MotionLink } from "../Motion";
+import { motion } from 'framer-motion';
+import { MotionLink } from '../Motion';
 
 export default function FormActions({
   loading,
@@ -22,7 +22,7 @@ export default function FormActions({
           className="text-white bg-blue-500 hover:bg-blue-400 px-8 py-3 rounded-2xl hover:scale-95 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
           disabled={loading}
         >
-          {loading ? "Cargando..." : "Iniciar sesión"}
+          {loading ? 'Cargando...' : 'Iniciar sesión'}
         </motion.button>
       ) : (
         <motion.button
@@ -36,7 +36,7 @@ export default function FormActions({
           className="text-white bg-orange-400 hover:bg-orange-300 px-8 py-3 rounded-2xl hover:scale-95 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
           disabled={loading}
         >
-          {loading ? "Cargando..." : "Registrarme"}
+          {loading ? 'Cargando...' : 'Registrarme'}
         </motion.button>
       )}
       <MotionLink
@@ -50,7 +50,7 @@ export default function FormActions({
         }}
         aria-disabled={loading}
         className="text-neutral-500 text-center w-fit mx-auto mt-4 no-underline hover:underline active:underline"
-        href={loading ? "" : "/?params=2"}
+        href={loading ? '' : '/?params=2'}
       >
         Cancelar
       </MotionLink>

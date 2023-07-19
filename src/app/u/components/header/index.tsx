@@ -1,8 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { BsArrowUpRight } from "react-icons/bs";
-import { motion } from "framer-motion";
-import { MotionLink } from "@/shared/components/Motion";
-import MenuActions from "./MenuActions";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { BsArrowUpRight } from 'react-icons/bs';
+import { motion } from 'framer-motion';
+import { MotionLink } from '@/shared/components/Motion';
+import MenuActions from './MenuActions';
 
 export default function HomeHeader() {
   return (

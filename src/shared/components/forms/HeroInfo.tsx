@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { motion } from "framer-motion";
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 export default function HeroInfo({
   image,
@@ -25,7 +25,7 @@ export default function HeroInfo({
           scale: 1,
           y: 0,
         }}
-        className={loading ? "animate-pulse" : ""}
+        className={loading ? 'animate-pulse' : ''}
       >
         <Image
           src={image}

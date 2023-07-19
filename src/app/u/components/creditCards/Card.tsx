@@ -1,12 +1,12 @@
-import { FcSimCardChip } from "react-icons/fc";
+import { FcSimCardChip } from 'react-icons/fc';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { motion } from "framer-motion";
-import { ICreditCard } from "./creditCard";
+} from '@/components/ui/tooltip';
+import { motion } from 'framer-motion';
+import { ICreditCard } from './creditCard';
 
 export default function Card({ card }: { card: ICreditCard }) {
   return (

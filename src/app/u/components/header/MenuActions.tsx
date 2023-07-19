@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { PiDotsThreeOutlineFill } from "react-icons/pi";
+import { motion } from 'framer-motion';
+import { PiDotsThreeOutlineFill } from 'react-icons/pi';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,16 +13,16 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import supabase from "@/lib/supabase";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/dropdown-menu';
+import supabase from '@/lib/supabase';
+import { useRouter } from 'next/navigation';
 
 export default function MenuActions() {
   const router = useRouter();
 
   const handleLogOut = async () => {
     await supabase.auth.signOut();
-    router.push("/auth/login");
+    router.push('/auth/login');
   };
 
   return (

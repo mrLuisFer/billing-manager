@@ -1,14 +1,14 @@
-import { RegisterSchema } from "@/types/register/formSchema";
-import { UseFormRegister } from "react-hook-form";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { RegisterSchema } from '@/types/register/formSchema';
+import { UseFormRegister } from 'react-hook-form';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import InputHightlight from "./InputHightlight";
+} from '@/components/ui/tooltip';
+import InputHightlight from './InputHightlight';
 
 export default function PassInput({
   register,
@@ -22,9 +22,9 @@ export default function PassInput({
       icon="/assets/register/pass_icon.svg"
       name="password"
       inputProps={{
-        type: showPassword ? "text" : "password",
-        placeholder: showPassword ? "contrasena" : "******",
-        ...register("password"),
+        type: showPassword ? 'text' : 'password',
+        placeholder: showPassword ? 'contrasena' : '******',
+        ...register('password'),
       }}
     >
       <TooltipProvider>
@@ -48,7 +48,7 @@ export default function PassInput({
               onClick={() => setShowPassword(!showPassword)}
               type="button"
             >
-              {showPassword ? "🫣" : "👀"}
+              {showPassword ? '🫣' : '👀'}
             </motion.button>
           </TooltipTrigger>
           <TooltipContent>

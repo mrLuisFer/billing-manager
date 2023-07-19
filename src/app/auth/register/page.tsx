@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { RegisterSchema, registerSchema } from "@/types/register/formSchema";
-import { motion } from "framer-motion";
-import supabase from "@/lib/supabase";
-import { AiOutlineLoading } from "react-icons/ai";
-import EmailInput from "@/shared/components/forms/EmailInput";
-import GoBackLink from "@/shared/components/forms/GoBackLink";
-import HeroInfo from "@/shared/components/forms/HeroInfo";
-import PassInput from "@/shared/components/forms/PassInput";
-import FormActions from "@/shared/components/forms/FormActions";
-import ConfirmEmail from "./components/ConfirmEmail";
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { RegisterSchema, registerSchema } from '@/types/register/formSchema';
+import { motion } from 'framer-motion';
+import supabase from '@/lib/supabase';
+import { AiOutlineLoading } from 'react-icons/ai';
+import EmailInput from '@/shared/components/forms/EmailInput';
+import GoBackLink from '@/shared/components/forms/GoBackLink';
+import HeroInfo from '@/shared/components/forms/HeroInfo';
+import PassInput from '@/shared/components/forms/PassInput';
+import FormActions from '@/shared/components/forms/FormActions';
+import ConfirmEmail from './components/ConfirmEmail';
 
 const schema: yup.ObjectSchema<RegisterSchema> = yup
   .object()
@@ -29,8 +29,8 @@ export default function RegisterPage() {
   } = useForm<RegisterSchema>({
     resolver: yupResolver(schema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 

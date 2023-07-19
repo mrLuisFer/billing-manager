@@ -10,11 +10,10 @@
     "project": "./tsconfig.json"
   },
   "ignorePatterns": ["**/*.js", "**/*.jsx"],
-  "plugins": ["prettier"],
   "rules": {
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
-    "prettier/prettier": "warn",
+    "prettier/prettier": "off",
     "no-console": "warn"
   }
 }
