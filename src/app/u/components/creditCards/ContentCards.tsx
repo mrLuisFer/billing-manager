@@ -1,16 +1,11 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import Card from "./Card";
 import { PiCardholderThin } from "react-icons/pi";
+import Card from "./Card";
+import { ICreditCard } from "./creditCard";
 
-export interface ICreditCard {
-  cardNumber: string;
-  id: string;
-  name: string;
-  type: string;
-}
 export default function ContentCards() {
-  const [activeCards, setActiveCards] = useState<ICreditCard[]>([
+  const [activeCards] = useState<ICreditCard[]>([
     {
       id: "1",
       name: "Luis",
@@ -36,7 +31,7 @@ export default function ContentCards() {
       </motion.h2>
       <motion.div className="flex gap-6 overflow-x-scroll flex-nowrap pb-6">
         {!(activeCards.length === 0) &&
-          activeCards.map((card, i) => <Card card={card} key={card.id} />)}
+          activeCards.map((card) => <Card card={card} key={card.id} />)}
       </motion.div>
       <motion.button
         initial={{ opacity: 0, y: 50 }}

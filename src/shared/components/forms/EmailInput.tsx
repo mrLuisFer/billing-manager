@@ -1,7 +1,7 @@
 import React from "react";
-import InputHightlight from "./InputHightlight";
 import { RegisterSchema } from "@/types/register/formSchema";
 import { UseFormRegister } from "react-hook-form";
+import InputHightlight from "./InputHightlight";
 
 export default function EmailInput({
   register,
@@ -10,7 +10,7 @@ export default function EmailInput({
 }) {
   return (
     <InputHightlight
-      icon={"/assets/register/at_icon.svg"}
+      icon="/assets/register/at_icon.svg"
       name="email"
       inputProps={{
         type: "email",

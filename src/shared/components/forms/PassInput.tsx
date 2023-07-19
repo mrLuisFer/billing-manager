@@ -1,6 +1,5 @@
 import { RegisterSchema } from "@/types/register/formSchema";
 import { UseFormRegister } from "react-hook-form";
-import InputHightlight from "./InputHightlight";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -9,6 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import InputHightlight from "./InputHightlight";
 
 export default function PassInput({
   register,
@@ -19,7 +19,7 @@ export default function PassInput({
 
   return (
     <InputHightlight
-      icon={"/assets/register/pass_icon.svg"}
+      icon="/assets/register/pass_icon.svg"
       name="password"
       inputProps={{
         type: showPassword ? "text" : "password",

@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -33,7 +34,7 @@ const welcomeSlider = [
 export default function Home() {
   const [sliderIndex, setSliderIndex] = useState(0);
   const [activeSlider, setActiveSlider] = useState<ISlider>(
-    welcomeSlider[sliderIndex]
+    welcomeSlider[sliderIndex],
   );
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -86,7 +87,7 @@ export default function Home() {
             />
           </motion.div>
           <div className="flex items-center justify-center mt-6 gap-4">
-            {welcomeSlider.map(({ src, title }, i) => (
+            {welcomeSlider.map(({ src }, i) => (
               <MotionLink
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
@@ -96,7 +97,7 @@ export default function Home() {
                 className={`w-3  h-3 rounded-full cursor-pointer transition ${
                   sliderIndex === i ? "bg-black" : "bg-neutral-200 opacity-70"
                 }`}
-                href="/?params=${i}"
+                href={`/?params=${i}`}
                 onClick={() => {
                   setSliderIndex(i);
                 }}
@@ -120,6 +121,7 @@ export default function Home() {
             {activeSlider.description}
           </motion.p>
           <button
+            type="button"
             className={`border-2 transition border-t-yellow-300
 			 ${sliderIndex === 1 ? "border-r-yellow-300 border-b-yellow-300" : ""} 
 			 ${sliderIndex === 2 ? "border-yellow-300" : ""} 

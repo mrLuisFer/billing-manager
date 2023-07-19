@@ -1,16 +1,13 @@
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import { MotionLink } from "../Motion";
 
 export default function FormActions({
   loading,
-  isLogin,
+  isLogin = false,
 }: {
   loading: boolean;
   isLogin?: boolean;
 }) {
-  const router = useRouter();
-
   return (
     <div className="flex flex-col gap-2 items-center pt-4">
       {isLogin ? (

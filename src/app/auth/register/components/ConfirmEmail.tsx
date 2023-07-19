@@ -1,12 +1,10 @@
-import GoBackLink from "../../../../shared/components/forms/GoBackLink";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { MotionLink } from "@/shared/components/Motion";
+import GoBackLink from "../../../../shared/components/forms/GoBackLink";
 
 export default function ConfirmEmail() {
-  const router = useRouter();
   const imgContainer = useRef(null);
 
   return (
@@ -79,7 +77,7 @@ export default function ConfirmEmail() {
           dragConstraints={imgContainer}
         >
           <Image
-            src={"/assets/register/relax_img.svg"}
+            src="/assets/register/relax_img.svg"
             alt="Relájate y disfruta de un momento para ti"
             className="w-[200px] mb-4"
             aria-label="Relájate y disfruta de un momento para ti"

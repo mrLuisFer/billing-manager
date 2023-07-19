@@ -1,19 +1,16 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import TabContent from "./TabContent";
-import TabActions from "./TabActions";
 import { BsQuestionLg } from "react-icons/bs";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import TabContent from "./TabContent";
+import TabActions from "./TabActions";
 
 export default function Tabs() {
-  const [tabList, setTabList] = useState<string[]>([
-    "Suscripciones",
-    "Movimientos",
-  ]);
+  const [tabList] = useState<string[]>(["Suscripciones", "Movimientos"]);
   const [activeTab, setActiveTab] = useState(tabList[0]);
 
   return (

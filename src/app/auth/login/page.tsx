@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import GoBackLink from "@/shared/components/forms/GoBackLink";
 import HeroInfo from "@/shared/components/forms/HeroInfo";
-import InputHightlight from "@/shared/components/forms/InputHightlight";
 import EmailInput from "@/shared/components/forms/EmailInput";
 import PassInput from "@/shared/components/forms/PassInput";
 import { AiOutlineLoading } from "react-icons/ai";
@@ -42,12 +41,10 @@ export default function LoginPage() {
       password,
     });
     if (error) {
-      console.log(error);
       setLoading(false);
       return;
     }
     if (loginData) {
-      console.log(loginData);
       router.push("/u");
       setLoading(false);
     }
@@ -57,7 +54,7 @@ export default function LoginPage() {
     <section className="bg-black min-h-screen flex flex-col items-center pt-8">
       <GoBackLink />
       <HeroInfo
-        image={"/assets/login/float_logo.svg"}
+        image="/assets/login/float_logo.svg"
         title="Bienvenido de vuelta! Simplemente manten ese ritmo"
         subtitle="Ingresa tu cuenta para continuar"
       />

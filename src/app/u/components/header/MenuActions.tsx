@@ -14,7 +14,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import supabase from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
@@ -44,7 +43,7 @@ export default function MenuActions() {
             y: 0,
           }}
         >
-          <PiDotsThreeOutlineFill size={"1.2rem"} />
+          <PiDotsThreeOutlineFill size="1.2rem" />
         </motion.button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
@@ -82,7 +81,11 @@ export default function MenuActions() {
         <DropdownMenuSeparator />
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <button onClick={handleLogOut} className="w-full text-left">
+          <button
+            type="button"
+            onClick={handleLogOut}
+            className="w-full text-left"
+          >
             <span>Cerrar sesion</span>
           </button>
         </DropdownMenuItem>

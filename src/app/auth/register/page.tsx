@@ -1,7 +1,6 @@
 "use client";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import ConfirmEmail from "./components/ConfirmEmail";
+
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -14,6 +13,7 @@ import GoBackLink from "@/shared/components/forms/GoBackLink";
 import HeroInfo from "@/shared/components/forms/HeroInfo";
 import PassInput from "@/shared/components/forms/PassInput";
 import FormActions from "@/shared/components/forms/FormActions";
+import ConfirmEmail from "./components/ConfirmEmail";
 
 const schema: yup.ObjectSchema<RegisterSchema> = yup
   .object()
@@ -22,7 +22,6 @@ const schema: yup.ObjectSchema<RegisterSchema> = yup
 export default function RegisterPage() {
   const [formSent, setFormSent] = useState(false);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -39,7 +38,6 @@ export default function RegisterPage() {
     setLoading(true);
     const { email, password } = data;
     if (!email || !password) {
-      console.log("error");
       return;
     }
 
@@ -48,11 +46,10 @@ export default function RegisterPage() {
       password,
     });
     if (error) {
-      console.log(error);
+      return;
     }
 
     if (registerData) {
-      console.log(registerData);
       setLoading(false);
       setFormSent(true);
     }
@@ -68,7 +65,7 @@ export default function RegisterPage() {
         <GoBackLink />
         <HeroInfo
           loading={loading}
-          image={"/assets/register/float_logo.svg"}
+          image="/assets/register/float_logo.svg"
           title="Boom shakalaka! Vamos a empezar."
           subtitle="Para empezar, necesitamos un nombre y correo electrónico."
         />

@@ -6,7 +6,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { motion } from "framer-motion";
-import { ICreditCard } from "./ContentCards";
+import { ICreditCard } from "./creditCard";
 
 export default function Card({ card }: { card: ICreditCard }) {
   return (
@@ -39,7 +39,7 @@ export default function Card({ card }: { card: ICreditCard }) {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <button className="select-none">
+              <button type="button" className="select-none">
                 <h3 className="text-2xl tracking-wider font-bold text-neutral-300 hover:text-white">
                   {card.cardNumber}
                 </h3>

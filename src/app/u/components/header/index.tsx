@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Toggle } from "@/components/ui/toggle";
 import { BsArrowUpRight } from "react-icons/bs";
 import { motion } from "framer-motion";
 import { MotionLink } from "@/shared/components/Motion";
@@ -32,7 +31,7 @@ export default function HomeHeader() {
           className="flex items-center gap-2"
         >
           <span>Luis</span>
-          <BsArrowUpRight size={"0.9rem"} />
+          <BsArrowUpRight size="0.9rem" />
         </motion.div>
       </MotionLink>
       <section>
