@@ -38,19 +38,23 @@ export default function ContentCards() {
         {!(activeCards.length === 0) &&
           activeCards.map((card, i) => <Card card={card} key={card.id} />)}
       </motion.div>
-      <motion.div
+      <motion.button
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         whileTap={{
           scale: 0.95,
+          backgroundColor: "#000000",
         }}
-        className="flex items-center justify-between bg-[var(--primary-dark)] py-2 px-4 rounded-xl hover:brightness-110 mt-4"
+        whileHover={{
+          scale: 0.95,
+        }}
+        className="flex items-center w-full justify-between bg-[var(--primary-dark)] hover:bg-black transition py-2 px-4 rounded-xl hover:brightness-110 mt-4"
       >
         <motion.p>Agregar tarjeta</motion.p>
         <motion.div>
           <PiCardholderThin size="1.5rem" />
         </motion.div>
-      </motion.div>
+      </motion.button>
     </motion.div>
   );
 }

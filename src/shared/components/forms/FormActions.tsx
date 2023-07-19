@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { MotionLink } from "../Motion";
 
 export default function FormActions({
   loading,
@@ -41,7 +42,7 @@ export default function FormActions({
           {loading ? "Cargando..." : "Registrarme"}
         </motion.button>
       )}
-      <motion.p
+      <MotionLink
         initial={{
           scale: 0,
           opacity: 0,
@@ -52,14 +53,10 @@ export default function FormActions({
         }}
         aria-disabled={loading}
         className="text-neutral-500 text-center w-fit mx-auto mt-4 no-underline hover:underline active:underline"
-        onClick={() => {
-          if (!loading) {
-            router.push("/?params=2");
-          }
-        }}
+        href={loading ? "" : "/?params=2"}
       >
         Cancelar
-      </motion.p>
+      </MotionLink>
     </div>
   );
 }

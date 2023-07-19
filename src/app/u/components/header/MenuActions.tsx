@@ -15,7 +15,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import supabase from "@/lib/supabase";
+import { useRouter } from "next/navigation";
+
 export default function MenuActions() {
+  const router = useRouter();
+
+  const handleLogOut = async () => {
+    await supabase.auth.signOut();
+    router.push("/auth/login");
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -38,7 +48,7 @@ export default function MenuActions() {
         </motion.button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>Configuracion</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
@@ -69,9 +79,12 @@ export default function MenuActions() {
             <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <span>Log out</span>
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          <button onClick={handleLogOut} className="w-full text-left">
+            <span>Cerrar sesion</span>
+          </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

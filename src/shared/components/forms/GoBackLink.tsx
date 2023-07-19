@@ -1,9 +1,8 @@
-import Link from "next/link";
-import { motion } from "framer-motion";
+import { MotionLink } from "../Motion";
 
 export default function GoBackLink() {
   return (
-    <motion.div
+    <MotionLink
       initial={{
         opacity: 0,
         y: -100,
@@ -12,15 +11,11 @@ export default function GoBackLink() {
         opacity: 1,
         y: 0,
       }}
-      className="w-fit"
+      href="/?params=2"
+      className="text-white mx-auto px-4 py-2 w-fit border-2 rounded-xl hover:scale-95 active:scale-95"
+      role="link"
     >
-      <Link
-        href="/?params=2"
-        className="text-white mx-auto px-4 py-2 w-fit border-2 rounded-xl hover:scale-95 active:scale-95"
-        role="link"
-      >
-        Regresar
-      </Link>
-    </motion.div>
+      Regresar
+    </MotionLink>
   );
 }

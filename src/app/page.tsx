@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { MotionLink } from "@/shared/components/Motion";
 
 interface ISlider {
   src: string;
@@ -57,7 +58,7 @@ export default function Home() {
 	${sliderIndex === 2 ? "bg-yellow-300" : ""}
 	`}
         >
-          <motion.a
+          <MotionLink
             initial={{
               opacity: 0,
               y: -100,
@@ -70,7 +71,7 @@ export default function Home() {
             className="w-fit no-underline select-none flex text-black items-center justify-center border-2 border-black absolute top-5 mx-auto left-0 right-0 rounded-xl p-0.5 px-4 hover:bg-neutral-950 hover:text-inherit transition"
           >
             Tap para iniciar sesion
-          </motion.a>
+          </MotionLink>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ y: 0, opacity: 1 }}
@@ -86,7 +87,7 @@ export default function Home() {
           </motion.div>
           <div className="flex items-center justify-center mt-6 gap-4">
             {welcomeSlider.map(({ src, title }, i) => (
-              <motion.div
+              <MotionLink
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 initial={{ scale: 0 }}
@@ -95,9 +96,9 @@ export default function Home() {
                 className={`w-3  h-3 rounded-full cursor-pointer transition ${
                   sliderIndex === i ? "bg-black" : "bg-neutral-200 opacity-70"
                 }`}
+                href="/?params=${i}"
                 onClick={() => {
                   setSliderIndex(i);
-                  router.push(`/?params=${i}`);
                 }}
               />
             ))}

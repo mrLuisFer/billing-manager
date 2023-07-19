@@ -47,9 +47,9 @@ export default function LoginPage() {
       return;
     }
     if (loginData) {
-      setLoading(false);
       console.log(loginData);
       router.push("/u");
+      setLoading(false);
     }
   };
 

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useRef } from "react";
+import { MotionLink } from "@/shared/components/Motion";
 
 export default function ConfirmEmail() {
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function ConfirmEmail() {
             Confirma tu dirección de correo electrónico para desbloquear
             oportunidades increíbles.
           </motion.p>
-          <motion.button
+          <MotionLink
             initial={{
               opacity: 0,
               y: 20,
@@ -52,10 +53,10 @@ export default function ConfirmEmail() {
               y: 0,
             }}
             className="text-xs w-fit border-2 p-2 rounded-2xl uppercase"
-            onClick={() => router.push("/auth/help")}
+            href="/auth/help"
           >
             Necesitas ayuda?
-          </motion.button>
+          </MotionLink>
         </div>
       </div>
       <motion.div

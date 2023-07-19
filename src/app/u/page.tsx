@@ -1,10 +1,10 @@
 "use client";
-import HomeHeader from "@/components/home/header";
 import supabase from "@/lib/supabase";
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import ContentCards from "@/components/home/creditCards/ContentCards";
-import Tabs from "@/components/home/Content/Tabs";
+import Tabs from "@/app/u/components/Content/Tabs";
+import HomeHeader from "./components/header";
+import ContentCards from "./components/creditCards/ContentCards";
 
 export default function UPage() {
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function UPage() {
   }, []);
 
   return (
-    <main>
+    <main className="pb-10">
       <HomeHeader />
       <motion.section className="px-4 pt-6">
         <motion.div>
