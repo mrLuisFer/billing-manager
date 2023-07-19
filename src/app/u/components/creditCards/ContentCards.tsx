@@ -30,8 +30,8 @@ export default function ContentCards() {
         Tarjetas activas:
       </motion.h2>
       <motion.div className="flex gap-6 overflow-x-scroll flex-nowrap pb-6">
-        {!(activeCards.length === 0)
-          && activeCards.map((card) => <Card card={card} key={card.id} />)}
+        {!(activeCards.length === 0) &&
+          activeCards.map((card) => <Card card={card} key={card.id} />)}
       </motion.div>
       <motion.button
         initial={{ opacity: 0, y: 50 }}
