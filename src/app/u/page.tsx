@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import supabase from "@/lib/supabase";
-import React, { useEffect } from "react";
-import { motion } from "framer-motion";
-import Tabs from "@/app/u/components/Content/Tabs";
-import HomeHeader from "./components/header";
-import ContentCards from "./components/creditCards/ContentCards";
+import supabase from '@/lib/supabase';
+import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import Tabs from '@/app/u/components/Content/Tabs';
+import HomeHeader from './components/header';
+import ContentCards from './components/creditCards/ContentCards';
 
 export default function UPage() {
   useEffect(() => {
@@ -13,7 +13,7 @@ export default function UPage() {
       const useResponse = await supabase.auth.getUser();
       const sessionResponse = await supabase.auth.getSession();
 
-      console.log(useResponse, sessionResponse);
+      return { useResponse, sessionResponse };
     })();
   }, []);
 
