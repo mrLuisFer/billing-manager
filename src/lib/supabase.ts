@@ -9,5 +9,10 @@ export const VITE_SUPABASE_ANON_KEY =
 const supabase = createClient<Database>(
   VITE_SUPABASE_URL,
   VITE_SUPABASE_ANON_KEY,
+  {
+    auth: {
+      persistSession: true,
+    },
+  },
 );
 export default supabase;

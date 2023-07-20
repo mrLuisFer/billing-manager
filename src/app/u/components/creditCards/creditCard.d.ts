@@ -1,6 +1,9 @@
 export interface ICreditCard {
-  cardNumber: string;
+  created_at: string | null;
+  expiry: string | null;
   id: string;
-  name: string;
-  type: string;
+  name: string | null;
+  number: string | null;
+  owner: string | null;
+  type: string | null;
 }

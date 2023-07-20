@@ -35,8 +35,6 @@ export default function UPage() {
     })();
   }, [router, setSession]);
 
-  console.log({ session });
-
   if (isLoadingUser) {
     return <Spinner />;
   }

@@ -1,27 +1,43 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PiCardholderThin } from 'react-icons/pi';
 import { createPortal } from 'react-dom';
+import supabase from '@/lib/supabase';
+import useSessionStore from '@/store/useSessionStore';
 import Card from './Card';
 import { ICreditCard } from './creditCard';
 import AddCard from './AddCard';
 
 export default function ContentCards() {
   const [isAddingCard, setIsAddingCard] = useState(false);
-  const [activeCards] = useState<ICreditCard[]>([
-    {
-      id: '1',
-      name: 'Luis',
-      cardNumber: '**** **** **** 1234',
-      type: 'visa',
-    },
-    {
-      id: '2',
-      name: 'Fer',
-      cardNumber: '**** **** **** 9878',
-      type: 'visa',
-    },
-  ]);
+  const [activeCards, setActiveCards] = useState<ICreditCard[]>([]);
+  const session = useSessionStore((state) => state.session);
+
+  useEffect(() => {
+    (async () => {
+      if (!session) return;
+      const cardsResponse = await supabase
+        .from('cards')
+        .select('*')
+        .eq('owner', session?.user.id);
+
+      if (cardsResponse.error) {
+        return;
+      }
+
+      if (cardsResponse.data) {
+        setActiveCards(cardsResponse?.data);
+      }
+    })();
+  }, [session]);
+
+  useEffect(() => {
+    if (isAddingCard) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isAddingCard]);
 
   return (
     <motion.div className="mt-8 text-neutral-500">
