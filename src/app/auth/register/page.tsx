@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { RegisterSchema, registerSchema } from '@/types/register/formSchema';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import supabase from '@/lib/supabase';
 import { AiOutlineLoading, AiOutlineUser } from 'react-icons/ai';
 import EmailInput from '@/shared/components/forms/EmailInput';
@@ -76,68 +76,72 @@ export default function RegisterPage() {
     }
   };
 
-  if (formSent) {
-    return <ConfirmEmail />;
-  }
-
   return (
-    <main>
-      <section className="bg-black min-h-screen flex flex-col items-center pt-8">
-        <GoBackLink />
-        <HeroInfo
-          loading={loading}
-          image="/assets/register/float_logo.svg"
-          title="Boom shakalaka! Vamos a empezar."
-          subtitle="Para empezar, necesitamos un nombre y correo electrónico."
-        />
-        <form
-          className="pt-4 flex flex-col items-center gap-8"
-          onSubmit={handleSubmit(handleRegisterForm)}
-        >
-          {loading ? (
-            <motion.div
-              className="text-4xl animate-spin transition"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
+    <AnimatePresence>
+      {formSent ? (
+        <ConfirmEmail />
+      ) : (
+        <main>
+          <section className="bg-black min-h-screen flex flex-col items-center pt-8">
+            <GoBackLink />
+            <HeroInfo
+              loading={loading}
+              image="/assets/register/float_logo.svg"
+              title="Boom shakalaka! Vamos a empezar."
+              subtitle="Para empezar, necesitamos un nombre y correo electrónico."
+            />
+            <form
+              className="pt-4 flex flex-col items-center gap-8"
+              onSubmit={handleSubmit(handleRegisterForm)}
             >
-              <AiOutlineLoading />
-            </motion.div>
-          ) : (
-            <>
-              <InputHightlight
-                icon={<AiOutlineUser size="1.5rem" />}
-                name="username"
-                inputProps={{
-                  ...register('name'),
-                  placeholder: 'john_doe',
-                }}
-              />
-              <EmailInput register={register} />
-              <PassInput register={register} />
-              {(errors.email || errors.password) && (
+              {loading ? (
                 <motion.div
-                  initial={{
-                    opacity: 0,
-                  }}
-                  animate={{
-                    opacity: 1,
-                  }}
-                  exit={{
-                    opacity: 0,
-                  }}
-                  className="max-w-xs"
+                  className="text-4xl animate-spin transition"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0 }}
                 >
-                  <p className="text-red-500 text-center w-fit mx-auto">
-                    {errors.email?.message || errors.password?.message}
-                  </p>
+                  <AiOutlineLoading />
                 </motion.div>
+              ) : (
+                <>
+                  <InputHightlight
+                    icon={<AiOutlineUser size="1.5rem" />}
+                    name="username"
+                    inputProps={{
+                      ...register('name'),
+                      placeholder: 'john_doe',
+                    }}
+                  />
+                  <EmailInput register={register} />
+                  <PassInput register={register} />
+                  <AnimatePresence>
+                    {(errors.email || errors.password) && (
+                      <motion.div
+                        initial={{
+                          opacity: 0,
+                        }}
+                        animate={{
+                          opacity: 1,
+                        }}
+                        exit={{
+                          opacity: 0,
+                        }}
+                        className="max-w-xs"
+                      >
+                        <p className="text-red-500 text-center w-fit mx-auto">
+                          {errors.email?.message || errors.password?.message}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </>
               )}
-            </>
-          )}
-          <FormActions loading={loading} />
-        </form>
-      </section>
-    </main>
+              <FormActions loading={loading} />
+            </form>
+          </section>
+        </main>
+      )}
+    </AnimatePresence>
   );
 }

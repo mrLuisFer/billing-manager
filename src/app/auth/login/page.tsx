@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import GoBackLink from '@/shared/components/forms/GoBackLink';
 import HeroInfo from '@/shared/components/forms/HeroInfo';
 import EmailInput from '@/shared/components/forms/EmailInput';
@@ -49,7 +49,10 @@ export default function LoginPage() {
     }
     if (loginData) {
       router.push('/u');
-      setLoading(false);
+    } else {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
   };
 
@@ -71,24 +74,26 @@ export default function LoginPage() {
           <>
             <EmailInput register={register} />
             <PassInput register={register} />
-            {(errors.email || errors.password) && (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                }}
-                exit={{
-                  opacity: 0,
-                }}
-                className="max-w-xs"
-              >
-                <p className="text-red-500 text-center w-fit mx-auto">
-                  {errors.email?.message || errors.password?.message}
-                </p>
-              </motion.div>
-            )}
+            <AnimatePresence>
+              {(errors.email || errors.password) && (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                  }}
+                  animate={{
+                    opacity: 1,
+                  }}
+                  exit={{
+                    opacity: 0,
+                  }}
+                  className="max-w-xs"
+                >
+                  <p className="text-red-500 text-center w-fit mx-auto">
+                    {errors.email?.message || errors.password?.message}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </>
         )}
         <FormActions loading={loading} isLogin />

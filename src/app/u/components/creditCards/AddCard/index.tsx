@@ -8,7 +8,9 @@ import supabase from '@/lib/supabase';
 import useSessionStore from '@/store/useSessionStore';
 import useGetTypeCreditCard from '@/app/u/helpers/useGetTypeCreditCard';
 import Spinner from '@/components/Spinner';
+import useActiveCardsStore from '@/store/useActiveCards';
 import InputCard from './InputCard';
+import { ICreditCard } from '../creditCard';
 
 const addCardSchema = yup.object().shape({
   number: yup
@@ -27,6 +29,7 @@ export default function AddCard({
   setIsAddingCard: Dispatch<SetStateAction<boolean>>;
 }) {
   const session = useSessionStore((state) => state.session);
+  const { cards, setActiveCards } = useActiveCardsStore((state) => state);
 
   const {
     handleSubmit,
@@ -63,9 +66,10 @@ export default function AddCard({
     const addCardResponse = await supabase.from('cards').insert({
       number: data.number,
       expiry: cardDate,
-      type: cardType,
+      type: cardType.name,
       name: data.name,
       owner: session?.user.id,
+      bg_color: cardType.color,
     });
 
     if (addCardResponse.error) {
@@ -74,6 +78,18 @@ export default function AddCard({
 
     handleCancelAddCard();
   };
+
+  supabase
+    .channel('custom-insert-channel')
+    .on(
+      'postgres_changes',
+      { event: 'INSERT', schema: 'public', table: 'cards' },
+      (payload) => {
+        const newCard = payload.new as ICreditCard;
+        setActiveCards([...cards, newCard]);
+      },
+    )
+    .subscribe();
 
   return (
     <div className="fixed bg-black bg-opacity-80 h-screen w-full top-0 flex items-center justify-center">
@@ -165,7 +181,7 @@ export default function AddCard({
                   placeholder: 'Visa',
                   className: 'italic text-sm placeholder:italic',
                   disabled: true,
-                  value: cardType,
+                  value: cardType.name,
                 }}
                 containerAnimation={{
                   initial: {

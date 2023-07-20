@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { MotionLink } from '@/shared/components/Motion';
 
 interface ISlider {
@@ -141,21 +141,27 @@ export default function Home() {
               animate={{ scale: 1 }}
               className="bg-yellow-300 p-2 rounded-full flex items-center justify-center gap-2"
             >
-              {sliderIndex === 2 && (
-                <motion.p
-                  initial={{
-                    opacity: 0,
-                    x: 20,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    x: 0,
-                  }}
-                  className="text-black font-bold"
-                >
-                  Registrate
-                </motion.p>
-              )}
+              <AnimatePresence>
+                {sliderIndex === 2 && (
+                  <motion.p
+                    initial={{
+                      opacity: 0,
+                      x: 20,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      x: 20,
+                    }}
+                    className="text-black font-bold"
+                  >
+                    Registrate
+                  </motion.p>
+                )}
+              </AnimatePresence>
               <svg
                 width="25"
                 height="25"
@@ -172,17 +178,20 @@ export default function Home() {
               </svg>
             </motion.div>
           </button>
-          <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <p className="flex items-center justify-center text-center gap-2 text-sm mt-auto">
-              Ya tienes una cuenta?
-              <a href="/auth/login" className="text-yellow-200">
-                Inicia sesion
-              </a>
-            </p>
-          </motion.div>
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 100 }}
+            >
+              <p className="flex items-center justify-center text-center gap-2 text-sm mt-auto">
+                Ya tienes una cuenta?
+                <a href="/auth/login" className="text-yellow-200">
+                  Inicia sesion
+                </a>
+              </p>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
     </main>

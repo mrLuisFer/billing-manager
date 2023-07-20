@@ -5,14 +5,21 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { ICreditCard } from './creditCard';
 import formatCreditNumber, {
   formatCreditNumberWithSpaces,
 } from '../../helpers/formatCreditNumbers';
+import CardActions from './CardActions';
 
-export default function Card({ card }: { card: ICreditCard }) {
+export default function Card({
+  card,
+  isEditingCards,
+}: {
+  card: ICreditCard;
+  isEditingCards: boolean;
+}) {
   const [showCardNumber, setShowCardNumber] = useState(false);
   const formattedNumber = formatCreditNumber(card.number!);
 
@@ -30,8 +37,12 @@ export default function Card({ card }: { card: ICreditCard }) {
         opacity: 1,
         x: 0,
       }}
-      className="bg-[var(--primary-dark)] rounded-xl h-[200px] min-w-fit w-full p-4 flex flex-col justify-between"
+      className="relative rounded-xl h-[200px] min-w-[340px] w-full p-4 flex flex-col justify-between"
+      style={{
+        backgroundColor: card?.bg_color ? card.bg_color : 'var(--primary-dark)',
+      }}
     >
+      <AnimatePresence>{isEditingCards && <CardActions />}</AnimatePresence>
       <header className="flex items-center justify-between">
         <motion.p
           initial={{ opacity: 0 }}
