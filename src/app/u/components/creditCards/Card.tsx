@@ -30,7 +30,7 @@ export default function Card({ card }: { card: ICreditCard }) {
         opacity: 1,
         x: 0,
       }}
-      className="bg-[var(--primary-dark)] rounded-xl h-[200px] min-w-fit w-[300px] p-4 flex flex-col justify-between"
+      className="bg-[var(--primary-dark)] rounded-xl h-[200px] min-w-fit w-full p-4 flex flex-col justify-between"
     >
       <header className="flex items-center justify-between">
         <motion.p
