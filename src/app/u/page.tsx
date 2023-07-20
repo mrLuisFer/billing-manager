@@ -21,7 +21,7 @@ export default function UPage() {
       setIsLoadingUser(true);
       const sessionResponse = await supabase.auth.getSession();
 
-      if (sessionResponse.error) {
+      if (sessionResponse.error || sessionResponse.data?.session === null) {
         await supabase.auth.signOut();
         router.push('/auth/login');
         return;
@@ -36,7 +36,11 @@ export default function UPage() {
   }, [router, setSession]);
 
   if (isLoadingUser) {
-    return <Spinner />;
+    return (
+      <main className="min-h-screen flex justify-center items-center w-full overflow-x-hidden">
+        <Spinner />
+      </main>
+    );
   }
 
   return (
