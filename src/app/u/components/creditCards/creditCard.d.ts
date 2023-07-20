@@ -6,4 +6,5 @@ export interface ICreditCard {
   number: string | null;
   owner: string | null;
   type: string | null;
+  bg_color: string | null;
 }

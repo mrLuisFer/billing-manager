@@ -41,20 +41,36 @@ export default function ConfirmEmail() {
             Confirma tu dirección de correo electrónico para desbloquear
             oportunidades increíbles.
           </motion.p>
-          <MotionLink
-            initial={{
-              opacity: 0,
-              y: 20,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            className="text-xs w-fit border-2 p-2 rounded-2xl uppercase"
-            href="/auth/help"
-          >
-            Necesitas ayuda?
-          </MotionLink>
+          <motion.div className="flex gap-4 items-center justify-center">
+            <MotionLink
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              className="text-xs w-fit border-2 py-2 px-3 rounded-2xl uppercase"
+              href="/auth/help"
+            >
+              Necesitas ayuda?
+            </MotionLink>
+            <MotionLink
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              className="text-xs w-fit border-2 py-2 px-3 rounded-2xl uppercase"
+              href="/auth/login"
+            >
+              Iniciar sesión
+            </MotionLink>
+          </motion.div>
         </div>
       </div>
       <motion.div
