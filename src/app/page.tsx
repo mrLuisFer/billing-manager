@@ -176,7 +176,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <p className="text-center gap-1 text-sm mt-auto">
+            <p className="flex items-center justify-center text-center gap-2 text-sm mt-auto">
               Ya tienes una cuenta?
               <a href="/auth/login" className="text-yellow-200">
                 Inicia sesion

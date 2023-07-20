@@ -9,6 +9,43 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      cards: {
+        Row: {
+          created_at: string | null
+          expiry: string | null
+          id: string
+          name: string | null
+          number: string | null
+          owner: string | null
+          type: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          expiry?: string | null
+          id?: string
+          name?: string | null
+          number?: string | null
+          owner?: string | null
+          type?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          expiry?: string | null
+          id?: string
+          name?: string | null
+          number?: string | null
+          owner?: string | null
+          type?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cards_owner_fkey"
+            columns: ["owner"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       channels: {
         Row: {
           created_by: string
@@ -68,49 +105,6 @@ export interface Database {
           },
           {
             foreignKeyName: "messages_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      role_permissions: {
-        Row: {
-          id: number
-          permission: Database["public"]["Enums"]["app_permission"]
-          role: Database["public"]["Enums"]["app_role"]
-        }
-        Insert: {
-          id?: number
-          permission: Database["public"]["Enums"]["app_permission"]
-          role: Database["public"]["Enums"]["app_role"]
-        }
-        Update: {
-          id?: number
-          permission?: Database["public"]["Enums"]["app_permission"]
-          role?: Database["public"]["Enums"]["app_role"]
-        }
-        Relationships: []
-      }
-      user_roles: {
-        Row: {
-          id: number
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
-        }
-        Insert: {
-          id?: number
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
-        }
-        Update: {
-          id?: number
-          role?: Database["public"]["Enums"]["app_role"]
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_roles_user_id_fkey"
             columns: ["user_id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
