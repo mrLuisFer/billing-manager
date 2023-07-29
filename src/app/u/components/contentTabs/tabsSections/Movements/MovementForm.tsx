@@ -190,6 +190,7 @@ export default function MovementForm({
         inputProps={{
           type: 'date',
           placeholder: 'Fecha del movimiento',
+          className: 'w-full',
           ...register('movementDate'),
         }}
         containerAnimation={{

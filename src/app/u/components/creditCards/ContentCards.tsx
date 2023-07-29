@@ -100,6 +100,7 @@ export default function ContentCards() {
                     card={card}
                     key={card.id}
                     isEditingCards={isEditingCards}
+                    setIsEditingCards={setIsEditingCards}
                   />
                 ))}
             </AnimatePresence>

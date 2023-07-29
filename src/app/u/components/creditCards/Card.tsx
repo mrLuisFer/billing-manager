@@ -6,7 +6,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { ICreditCard } from './creditCard';
 import formatCreditNumber, {
   formatCreditNumberWithSpaces,
@@ -16,9 +16,11 @@ import CardActions from './CardActions';
 export default function Card({
   card,
   isEditingCards,
+  setIsEditingCards,
 }: {
   card: ICreditCard;
   isEditingCards: boolean;
+  setIsEditingCards: Dispatch<SetStateAction<boolean>>;
 }) {
   const [showCardNumber, setShowCardNumber] = useState(false);
   const formattedNumber = formatCreditNumber(card.number!);
@@ -42,7 +44,11 @@ export default function Card({
         backgroundColor: card?.bg_color ? card.bg_color : 'var(--primary-dark)',
       }}
     >
-      <AnimatePresence>{isEditingCards && <CardActions />}</AnimatePresence>
+      <AnimatePresence>
+        {isEditingCards && (
+          <CardActions id={card.id} setIsEditingCards={setIsEditingCards} />
+        )}
+      </AnimatePresence>
       <header className="flex items-center justify-between">
         <motion.p
           initial={{ opacity: 0 }}
@@ -71,7 +77,9 @@ export default function Card({
             opacity: 1,
           }}
         >
-          <p className="font-bold tracking-widest text-xl text-white">{card.name}</p>
+          <p className="font-bold tracking-widest text-xl text-white">
+            {card.name}
+          </p>
         </motion.div>
         <p className="text-sm text-neutral-500">Numero de tarjeta</p>
         <TooltipProvider>
