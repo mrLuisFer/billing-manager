@@ -7,6 +7,7 @@ import useSessionStore from '@/store/useSessionStore';
 import useActiveCardsStore from '@/store/useActiveCards';
 import { FiEdit } from 'react-icons/fi';
 import { FcCancel } from 'react-icons/fc';
+import { TbLayoutGridAdd } from 'react-icons/tb';
 import Card from './Card';
 import AddCard from './AddCard';
 
@@ -63,18 +64,30 @@ export default function ContentCards() {
           {cards.length ? 'Tarjetas activas' : 'No tienes tarjetas activas'}
         </motion.h2>
         <AnimatePresence>
-          {cards.length ? (
+          <div className="flex items-center justify-end gap-4">
             <motion.button
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               className="bg-[var(--primary-dark)] p-2 rounded-2xl text-white"
               title={isEditingCards ? 'Cancelar' : 'Editar'}
               type="button"
-              onClick={() => setIsEditingCards(!isEditingCards)}
+              onClick={() => setIsAddingCard(true)}
             >
-              {isEditingCards ? <FcCancel /> : <FiEdit />}
+              <TbLayoutGridAdd />
             </motion.button>
-          ) : null}
+            {cards.length ? (
+              <motion.button
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="bg-[var(--primary-dark)] p-2 rounded-2xl text-white"
+                title={isEditingCards ? 'Cancelar' : 'Editar'}
+                type="button"
+                onClick={() => setIsEditingCards(!isEditingCards)}
+              >
+                {isEditingCards ? <FcCancel /> : <FiEdit />}
+              </motion.button>
+            ) : null}
+          </div>
         </AnimatePresence>
       </motion.div>
       <AnimatePresence>

@@ -30,7 +30,7 @@ export default function InputCard({
         {...inputProps}
       />
       {helper && (
-        <motion.span className="text-sm opacity-30 tracking-wide">
+        <motion.span className="text-xs opacity-30 group-focus-within:opacity-40 tracking-wide transition">
           {helper}
         </motion.span>
       )}

@@ -1,5 +1,23 @@
-import { motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import MovementsList from './tabsSections/Movements/MovementsList';
+import SuscriptionsList from './tabsSections/Suscriptions/SuscriptionsList';
+import tabskeys from './tabsKeys';
 
 export default function TabContent({ value }: { value: string }) {
-  return <motion.div className="mt-4">{value}</motion.div>;
+  switch (value) {
+    case tabskeys.movements:
+      return (
+        <AnimatePresence>
+          <MovementsList />
+        </AnimatePresence>
+      );
+    case tabskeys.suscriptions:
+      return (
+        <AnimatePresence>
+          <SuscriptionsList />
+        </AnimatePresence>
+      );
+    default:
+      return null;
+  }
 }

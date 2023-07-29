@@ -49,66 +49,38 @@ export interface Database {
           },
         ];
       };
-      channels: {
+      movements: {
         Row: {
-          created_by: string;
-          id: number;
-          inserted_at: string;
-          slug: string;
+          count: number | null;
+          created_at: string | null;
+          icon_name: string | null;
+          id: string;
+          movementDate: string | null;
+          name: string | null;
+          owner: string | null;
         };
         Insert: {
-          created_by: string;
-          id?: number;
-          inserted_at?: string;
-          slug: string;
+          count?: number | null;
+          created_at?: string | null;
+          icon_name?: string | null;
+          id?: string;
+          movementDate?: string | null;
+          name?: string | null;
+          owner?: string | null;
         };
         Update: {
-          created_by?: string;
-          id?: number;
-          inserted_at?: string;
-          slug?: string;
+          count?: number | null;
+          created_at?: string | null;
+          icon_name?: string | null;
+          id?: string;
+          movementDate?: string | null;
+          name?: string | null;
+          owner?: string | null;
         };
         Relationships: [
           {
-            foreignKeyName: 'channels_created_by_fkey';
-            columns: ['created_by'];
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-      messages: {
-        Row: {
-          channel_id: number;
-          id: number;
-          inserted_at: string;
-          message: string | null;
-          user_id: string;
-        };
-        Insert: {
-          channel_id: number;
-          id?: number;
-          inserted_at?: string;
-          message?: string | null;
-          user_id: string;
-        };
-        Update: {
-          channel_id?: number;
-          id?: number;
-          inserted_at?: string;
-          message?: string | null;
-          user_id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'messages_channel_id_fkey';
-            columns: ['channel_id'];
-            referencedRelation: 'channels';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'messages_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: 'movements_owner_fkey';
+            columns: ['owner'];
             referencedRelation: 'users';
             referencedColumns: ['id'];
           },

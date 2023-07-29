@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { BsQuestionLg } from 'react-icons/bs';
 import {
   Popover,
@@ -8,10 +8,29 @@ import {
 } from '@/components/ui/popover';
 import TabContent from './TabContent';
 import TabActions from './TabActions';
+import tabskeys from './tabsKeys';
+
+const tabsList = [
+  {
+    name: 'Suscripciones',
+    key: tabskeys.suscriptions,
+  },
+  {
+    name: 'Movimientos',
+    key: tabskeys.movements,
+  },
+];
 
 export default function Tabs() {
-  const [tabList] = useState<string[]>(['Suscripciones', 'Movimientos']);
-  const [activeTab, setActiveTab] = useState(tabList[0]);
+  const [tabList] = useState<typeof tabsList>(tabsList);
+  const [activeTab, setActiveTab] = useState<string>('');
+
+  useEffect(() => {
+    const storagedTabKey = localStorage.getItem('activeTab');
+    if (storagedTabKey) {
+      setActiveTab(storagedTabKey);
+    }
+  }, []);
 
   return (
     <motion.section
@@ -27,7 +46,7 @@ export default function Tabs() {
         <motion.ul className="flex gap-2 items-center rounded-xl w-full">
           {tabList.map((tabName) => (
             <motion.li
-              key={tabName}
+              key={tabName.key}
               value="account"
               whileTap={{
                 scale: 0.9,
@@ -42,14 +61,17 @@ export default function Tabs() {
               }}
             >
               <motion.button
-                onClick={() => setActiveTab(tabName)}
+                onClick={() => {
+                  setActiveTab(tabName.key);
+                  localStorage.setItem('activeTab', tabName.key);
+                }}
                 className={`p-2 rounded-lg  transition ${
-                  activeTab === tabName
+                  activeTab === tabName.key
                     ? 'bg-black text-white'
                     : 'bg-transparent text-black'
                 }`}
               >
-                {tabName}
+                {tabName.name}
               </motion.button>
             </motion.li>
           ))}
@@ -85,8 +107,10 @@ export default function Tabs() {
           </PopoverContent>
         </Popover>
       </motion.div>
-      <TabContent value={activeTab} />
-      <TabActions />
+      <AnimatePresence>
+        <TabContent value={activeTab} />
+      </AnimatePresence>
+      <TabActions activeTab={activeTab} />
     </motion.section>
   );
 }

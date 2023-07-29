@@ -47,7 +47,7 @@ export default function Card({
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="uppercase font-bold italic tracking-wider"
+          className="uppercase font-bold italic tracking-wider text-white"
         >
           {card.type}
         </motion.p>
@@ -71,9 +71,9 @@ export default function Card({
             opacity: 1,
           }}
         >
-          <p className="font-bold tracking-widest text-xl">{card.name}</p>
+          <p className="font-bold tracking-widest text-xl text-white">{card.name}</p>
         </motion.div>
-        <p className="text-sm">Numero de tarjeta</p>
+        <p className="text-sm text-neutral-500">Numero de tarjeta</p>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
