@@ -75,7 +75,6 @@ export default function Balance() {
       'postgres_changes',
       { event: 'UPDATE', schema: 'public', table: 'users' },
       (payload: any) => {
-        console.log(payload);
         const newBalance: number = payload.new.balance;
         setBalance(newBalance);
       },
@@ -122,7 +121,7 @@ export default function Balance() {
               }}
             >
               <Input
-                className="w-[120px]"
+                className="w-[130px] text-[1rem]"
                 type="number"
                 inputMode="numeric"
                 placeholder={`$ ${balance}.00`}
