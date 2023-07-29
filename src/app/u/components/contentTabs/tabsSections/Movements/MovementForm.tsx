@@ -16,6 +16,7 @@ import Spinner from '@/components/Spinner';
 import supabase from '@/lib/supabase';
 import useSessionStore from '@/store/useSessionStore';
 import useMovementsList from '@/store/useMovementsList';
+import useBalanceStore from '@/store/useBalanceStore';
 import InputCard from '../../../creditCards/AddCard/InputCard';
 import { IMovement } from './movement';
 
@@ -36,6 +37,7 @@ export default function MovementForm({
   const { movementsList, setMovementsList } = useMovementsList(
     (state) => state,
   );
+  const { balance, setBalance } = useBalanceStore((state) => state);
 
   const {
     handleSubmit,
@@ -47,7 +49,7 @@ export default function MovementForm({
     defaultValues: {
       name: '',
       price: undefined,
-      movementDate: null,
+      movementDate: `${Date.now()}`,
     },
   });
 
@@ -59,13 +61,23 @@ export default function MovementForm({
         owner: session?.user.id,
         count: data.price,
         icon_name: movementIcon,
-        movementDate: data.movementDate,
+        movementDate: `${
+          data.movementDate || new Date().toISOString().toLocaleString()
+        }`,
       })
       .eq('id', session?.user.id);
 
     if (movementSubmitResponse.error) {
       return;
     }
+
+    setBalance(balance - data.price);
+    await supabase
+      .from('users')
+      .update({
+        balance: balance - data.price,
+      })
+      .eq('id', session?.user.id);
 
     reset();
     setActiveActionsModal(false);

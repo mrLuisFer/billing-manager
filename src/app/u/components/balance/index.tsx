@@ -9,6 +9,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import supabase from '@/lib/supabase';
+import useBalanceStore from '@/store/useBalanceStore';
 import fetchBalance from '../../helpers/fetchBalance';
 
 const balanceSchema = yup.object().shape({
@@ -17,9 +18,9 @@ const balanceSchema = yup.object().shape({
 type IBalanceSchema = yup.InferType<typeof balanceSchema>;
 
 export default function Balance() {
-  const [balance, setBalance] = useState<number>(0);
   const session = useSessionStore((state) => state.session);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const { balance, setBalance } = useBalanceStore((state) => state);
 
   const {
     register,
