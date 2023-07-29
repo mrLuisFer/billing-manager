@@ -48,7 +48,7 @@ export default function MovementsList() {
         <SingleMovement
           key={movement.id}
           movement={movement}
-          ref={containerRef}
+          ref={containerRef as any}
         />
       ))}
     </section>
