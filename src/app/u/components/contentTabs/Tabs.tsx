@@ -23,7 +23,7 @@ const tabsList = [
 
 export default function Tabs() {
   const [tabList] = useState<typeof tabsList>(tabsList);
-  const [activeTab, setActiveTab] = useState<string>('');
+  const [activeTab, setActiveTab] = useState<string>(tabskeys.suscriptions);
 
   useEffect(() => {
     const storagedTabKey = localStorage.getItem('activeTab');

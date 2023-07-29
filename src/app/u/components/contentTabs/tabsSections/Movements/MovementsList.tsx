@@ -44,13 +44,21 @@ export default function MovementsList() {
 
   return (
     <section className="py-4 flex flex-col gap-4" ref={containerRef}>
-      {movementsList.map((movement) => (
-        <SingleMovement
-          key={movement.id}
-          movement={movement}
-          ref={containerRef as any}
-        />
-      ))}
+      {movementsList.length ? (
+        <>
+          {movementsList.map((movement) => (
+            <SingleMovement
+              key={movement.id}
+              movement={movement}
+              ref={containerRef as any}
+            />
+          ))}
+        </>
+      ) : (
+        <motion.div className="flex items-center justify-center opacity-50 hover:opacity-80 font-semibold">
+          <p>Sin movimientos registrados aun...</p>
+        </motion.div>
+      )}
     </section>
   );
 }

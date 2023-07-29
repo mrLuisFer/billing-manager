@@ -12,7 +12,7 @@ import ContentCards from './components/creditCards/ContentCards';
 import Balance from './components/balance';
 
 export default function UPage() {
-  const { session, setSession } = useSessionStore((state) => state);
+  const { setSession } = useSessionStore((state) => state);
   const router = useRouter();
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(false);
 
@@ -47,7 +47,7 @@ export default function UPage() {
     <main className="pb-10">
       <HomeHeader />
       <motion.section className="px-4 pt-6">
-        <Balance id={session?.user.id!} />
+        <Balance />
         <ContentCards />
         <Tabs />
       </motion.section>
