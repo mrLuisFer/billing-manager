@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import {
   AnimatePresence,
   PanInfo,
@@ -6,7 +7,10 @@ import {
 } from 'framer-motion';
 import { RefObject, forwardRef, useState } from 'react';
 import supabase from '@/lib/supabase';
+import { useDoubleTap } from 'use-double-tap';
 import useMovementsList from '@/store/useMovementsList';
+import Spinner from '@/components/Spinner';
+import { FiTrash } from 'react-icons/fi';
 import { IMovement } from './movement';
 import SelectIcon from './SelectIcon';
 
@@ -20,6 +24,24 @@ function SingleMovement({ movement }: SingleMovementProps, ref: any) {
   const { movementsList, setMovementsList } = useMovementsList(
     (state) => state,
   );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const deleteMove = async () => {
+    setIsLoading(true);
+    const deleteMoveResponse = await supabase
+      .from('movements')
+      .delete()
+      .eq('id', movement.id);
+
+    if (deleteMoveResponse.error) {
+      setIsDeletingMove(false);
+      setIsLoading(false);
+    }
+  };
+
+  const bindDoubleTap = useDoubleTap(() => {
+    setIsDeletingMove(true);
+  });
 
   const handleDrag = async (
     e: globalThis.MouseEvent | globalThis.TouchEvent | globalThis.PointerEvent,
@@ -29,17 +51,7 @@ function SingleMovement({ movement }: SingleMovementProps, ref: any) {
 
     if (pointX <= -90) {
       setIsDeletingMove(true);
-      const deleteMoveResponse = await supabase
-        .from('movements')
-        .delete()
-        .eq('id', movement.id);
-
-      if (deleteMoveResponse.error) {
-        setIsDeletingMove(false);
-        return;
-      }
-
-      return;
+      deleteMove();
     }
 
     setIsDeletingMove(false);
@@ -70,19 +82,28 @@ function SingleMovement({ movement }: SingleMovementProps, ref: any) {
       dragConstraints={ref}
       onDrag={handleDrag}
       dragControls={controls}
+      {...bindDoubleTap}
     >
       <AnimatePresence>
         {isDeletingMove ? (
           <motion.div
+            onClick={() => deleteMove()}
             initial={{
               opacity: 0,
             }}
             animate={{
               opacity: 1,
             }}
-            className="bg-red-500 transition text-white w-full flex items-center justify-center rounded-lg px-2 py-5 capitalize"
+            className="bg-red-500 transition text-white w-full flex items-center justify-center rounded-lg px-2 py-5 capitalize gap-2 text-lg"
           >
-            delete
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              <>
+                <FiTrash />
+                delete
+              </>
+            )}
           </motion.div>
         ) : (
           <motion.div
