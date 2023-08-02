@@ -11,6 +11,7 @@ import { useDoubleTap } from 'use-double-tap';
 import useMovementsList from '@/store/useMovementsList';
 import Spinner from '@/components/Spinner';
 import { FiTrash } from 'react-icons/fi';
+import { TiCancelOutline } from 'react-icons/ti';
 import { IMovement } from './movement';
 import SelectIcon from './SelectIcon';
 
@@ -86,25 +87,34 @@ function SingleMovement({ movement }: SingleMovementProps, ref: any) {
     >
       <AnimatePresence>
         {isDeletingMove ? (
-          <motion.div
-            onClick={() => deleteMove()}
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            className="bg-red-500 transition text-white w-full flex items-center justify-center rounded-lg px-2 py-5 capitalize gap-2 text-lg"
-          >
-            {isLoading ? (
-              <Spinner />
-            ) : (
-              <>
-                <FiTrash />
-                delete
-              </>
-            )}
-          </motion.div>
+          <div className="w-full items-center grid grid-cols-2 gap-4">
+            <motion.button
+              onClick={() => deleteMove()}
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              className="bg-red-500 transition text-white flex items-center justify-center rounded-lg capitalize gap-2 text-lg h-14"
+            >
+              {isLoading ? (
+                <Spinner />
+              ) : (
+                <>
+                  <FiTrash />
+                  delete
+                </>
+              )}
+            </motion.button>
+            <motion.button
+              className="bg-neutral-300 font-semibold flex items-center justify-center rounded-lg gap-2 h-14"
+              onClick={() => setIsDeletingMove(false)}
+            >
+              <TiCancelOutline size="1.5rem" />
+              Cancelar
+            </motion.button>
+          </div>
         ) : (
           <motion.div
             initial={{

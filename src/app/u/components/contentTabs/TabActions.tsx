@@ -18,7 +18,7 @@ export default function TabActions({ activeTab }: { activeTab: string }) {
 
   return (
     <motion.div
-      className="mt-6 flex items-center justify-end"
+      className="mt-6 flex items-end justify-between"
       initial={{
         opacity: 0,
         y: 50,
@@ -28,6 +28,9 @@ export default function TabActions({ activeTab }: { activeTab: string }) {
         y: 0,
       }}
     >
+      <motion.div className="opacity-30 font-semibold text-sm">
+        Doble tap para editar
+      </motion.div>
       <motion.button
         className="flex items-center justify-center bg-black w-fit p-2 rounded-lg text-white"
         whileTap={{
