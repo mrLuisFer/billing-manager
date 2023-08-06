@@ -13,12 +13,13 @@ import Spinner from '@/components/Spinner';
 import { FiTrash } from 'react-icons/fi';
 import { TiCancelOutline } from 'react-icons/ti';
 import { IMovement } from './movement';
-import SelectIcon from './SelectIcon';
+import SelectIcon from '../SelectIcon';
 
 interface SingleMovementProps {
   movement: IMovement;
+  id: number;
 }
-function SingleMovement({ movement }: SingleMovementProps, ref: any) {
+function SingleMovement({ movement, id }: SingleMovementProps, ref: any) {
   const [isDeletingMove, setIsDeletingMove] = useState<boolean>(false);
   const dateFormatted = new Date(movement.movementDate).toLocaleDateString();
   const controls = useDragControls();
@@ -78,6 +79,9 @@ function SingleMovement({ movement }: SingleMovementProps, ref: any) {
       key={movement.id}
       whileTap={{
         scale: 0.95,
+      }}
+      transition={{
+        delay: id * 0.1,
       }}
       drag="x"
       dragConstraints={ref}

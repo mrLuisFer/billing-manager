@@ -86,6 +86,46 @@ export interface Database {
           },
         ];
       };
+      suscriptions: {
+        Row: {
+          count: number | null;
+          created_at: string | null;
+          icon_name: string | null;
+          id: string;
+          name: string | null;
+          owner: string | null;
+          paymentDate: string | null;
+          status: string | null;
+        };
+        Insert: {
+          count?: number | null;
+          created_at?: string | null;
+          icon_name?: string | null;
+          id?: string;
+          name?: string | null;
+          owner?: string | null;
+          paymentDate?: string | null;
+          status?: string | null;
+        };
+        Update: {
+          count?: number | null;
+          created_at?: string | null;
+          icon_name?: string | null;
+          id?: string;
+          name?: string | null;
+          owner?: string | null;
+          paymentDate?: string | null;
+          status?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'suscriptions_owner_fkey';
+            columns: ['owner'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       users: {
         Row: {
           balance: number | null;

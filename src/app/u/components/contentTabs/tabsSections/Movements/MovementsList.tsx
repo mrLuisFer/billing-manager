@@ -46,11 +46,12 @@ export default function MovementsList() {
     <section className="py-4 flex flex-col gap-4" ref={containerRef}>
       {movementsList.length ? (
         <>
-          {movementsList.map((movement) => (
+          {movementsList.map((movement, id) => (
             <SingleMovement
               key={movement.id}
               movement={movement}
               ref={containerRef as any}
+              id={id}
             />
           ))}
         </>
