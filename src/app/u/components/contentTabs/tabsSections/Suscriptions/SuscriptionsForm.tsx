@@ -1,78 +1,64 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, type Dispatch, type SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import Spinner from '@/components/Spinner';
 import supabase from '@/lib/supabase';
 import useSessionStore from '@/store/useSessionStore';
-import useMovementsList from '@/store/useMovementsList';
-import useBalanceStore from '@/store/useBalanceStore';
+import useSuscriptionsList from '@/store/useSuscriptionsList';
 import InputCard from '../../../creditCards/AddCard/InputCard';
-import { IMovement } from './movement';
 import InputSelect from '../../../creditCards/AddCard/InputSelect';
 import iconsList from '../iconsList';
+import StatusSelect from './StatusSelect';
+import { ISuscription } from './suscription';
 
-const movementSchema = yup.object().shape({
+const suscriptionSchema = yup.object().shape({
   name: yup.string().required('El nombre es requerido'),
-  price: yup.number().required('El precio es requerido'),
-  movementDate: yup.string().nullable().optional(),
+  count: yup.number().required('El precio es requerido'),
+  paymentDate: yup.string().required('La fecha de pago es requerida'),
 });
-type IMovementSchema = yup.InferType<typeof movementSchema>;
+type ISuscriptionSchema = yup.InferType<typeof suscriptionSchema>;
 
-export default function MovementForm({
+export default function SuscriptionsForm({
   setActiveActionsModal,
 }: {
   setActiveActionsModal: Dispatch<SetStateAction<boolean>>;
 }) {
-  const session = useSessionStore((state) => state.session);
   const [movementIcon, setMovementIcon] = useState<string>('');
-  const { movementsList, setMovementsList } = useMovementsList(
+  const [statusValue, setStatusValue] = useState('');
+  const session = useSessionStore((state) => state.session);
+  const { setSuscriptionsList, suscriptionsList } = useSuscriptionsList(
     (state) => state,
   );
-  const { balance, setBalance } = useBalanceStore((state) => state);
 
   const {
-    handleSubmit,
     register,
-    formState: { errors, isLoading },
+    formState: { errors },
     reset,
-  } = useForm<IMovementSchema>({
-    resolver: yupResolver(movementSchema) as any,
+    handleSubmit,
+  } = useForm<ISuscriptionSchema>({
+    resolver: yupResolver(suscriptionSchema),
     defaultValues: {
       name: '',
-      price: undefined,
-      movementDate: `${Date.now()}`,
+      count: undefined,
+      paymentDate: '',
     },
   });
 
-  const onSubmit = async (data: IMovementSchema) => {
-    const movementSubmitResponse = await supabase
-      .from('movements')
-      .insert({
-        name: data.name,
-        owner: session?.user.id,
-        count: data.price,
-        icon_name: movementIcon,
-        movementDate: `${
-          data.movementDate || new Date().toISOString().toLocaleString()
-        }`,
-      })
-      .eq('id', session?.user.id);
+  const onSubmit = async (data: ISuscriptionSchema) => {
+    const suscriptionResponse = await supabase.from('suscriptions').insert({
+      name: data.name,
+      count: data.count,
+      paymentDate: data.paymentDate,
+      owner: session?.user?.id,
+      status: statusValue,
+      icon_name: movementIcon,
+    });
 
-    if (movementSubmitResponse.error) {
+    if (suscriptionResponse.error) {
       return;
     }
-
-    setBalance(balance - data.price);
-    await supabase
-      .from('users')
-      .update({
-        balance: balance - data.price,
-      })
-      .eq('id', session?.user.id);
 
     reset();
     setActiveActionsModal(false);
@@ -82,34 +68,26 @@ export default function MovementForm({
     .channel('custom-insert-channel')
     .on(
       'postgres_changes',
-      { event: 'INSERT', schema: 'public', table: 'movements' },
+      { event: 'INSERT', schema: 'public', table: 'suscriptions' },
       (payload) => {
-        const newMovement = payload.new as IMovement;
-        setMovementsList([...movementsList, newMovement]);
+        const newSuscription = payload.new as ISuscription;
+        setSuscriptionsList([...suscriptionsList, newSuscription]);
       },
     )
     .subscribe();
-
-  if (isLoading) {
-    return (
-      <motion.div className="flex p-4 items-center justify-center">
-        <Spinner />
-      </motion.div>
-    );
-  }
 
   return (
     <form
       className="pt-4 flex flex-col gap-4"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex items-start justify-between gap-4 mb-4">
+      <div className="flex items-center gap-4">
         <InputCard
           label="Nombre"
           name="name"
           inputProps={{
             type: 'text',
-            placeholder: 'Nombre del movimiento',
+            placeholder: 'Nombre de la suscripcion',
             required: true,
             ...register('name'),
           }}
@@ -128,19 +106,18 @@ export default function MovementForm({
           }}
           errorMessage={errors.name?.message}
         />
-        <div className="w-[140px]">
+        <div className="w-28">
           <InputCard
             label="Precio"
-            name="price"
+            name="count"
             inputProps={{
               type: 'number',
               inputMode: 'numeric',
+              placeholder: '$ 0.00',
               min: 0,
-              max: 999999,
-              placeholder: '$0',
-              required: true,
-              ...register('price'),
+              ...register('count'),
             }}
+            errorMessage={errors.count?.message}
             containerAnimation={{
               initial: {
                 opacity: 0,
@@ -151,28 +128,28 @@ export default function MovementForm({
                 opacity: 1,
               },
               transition: {
-                delay: 0.2,
+                delay: 0.3,
               },
             }}
-            errorMessage={errors.price?.message}
           />
         </div>
       </div>
       <InputSelect
-        label="Tipo de movimiento"
-        name="icon"
-        setValue={setMovementIcon}
+        label="Tipo de suscripcion"
+        name="icon_name"
         items={iconsList}
+        setValue={setMovementIcon}
       />
       <InputCard
-        label="Fecha del movimiento"
-        name="movementDate"
+        label="Fecha de pago"
+        name="paymentDate"
         inputProps={{
-          type: 'date',
-          placeholder: 'Fecha del movimiento',
+          type: 'text',
+          placeholder: 'Fecha de pago',
           className: 'w-full',
-          ...register('movementDate'),
+          ...register('paymentDate'),
         }}
+        errorMessage={errors.paymentDate?.message}
         containerAnimation={{
           initial: {
             opacity: 0,
@@ -186,9 +163,9 @@ export default function MovementForm({
             delay: 0.3,
           },
         }}
-        helper="Si lo dejas vacio se tomara la fecha actual"
       />
-      <motion.div className="flex items-center justify-between mt-6">
+      <StatusSelect setStatus={setStatusValue} />
+      <motion.div className="flex items-center justify-between mt-16">
         <Button
           variant="secondary"
           type="button"

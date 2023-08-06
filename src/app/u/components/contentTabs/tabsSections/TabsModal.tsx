@@ -2,6 +2,7 @@ import React, { type Dispatch, type SetStateAction } from 'react';
 import { CgClose } from 'react-icons/cg';
 import { motion } from 'framer-motion';
 import MovementForm from './Movements/MovementForm';
+import SuscriptionsForm from './Suscriptions/SuscriptionsForm';
 
 const modalTitle = {
   movements: 'Movimiento',
@@ -17,6 +18,9 @@ export default function TabsModal({
 }) {
   const forms = {
     movements: <MovementForm setActiveActionsModal={setActiveActionsModal} />,
+    suscriptions: (
+      <SuscriptionsForm setActiveActionsModal={setActiveActionsModal} />
+    ),
   };
 
   return (

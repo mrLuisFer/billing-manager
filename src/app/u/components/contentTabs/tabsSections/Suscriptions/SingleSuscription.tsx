@@ -11,8 +11,6 @@ export default function SingleSuscription({
   suscription: ISuscription;
   id: number;
 }) {
-  console.log({ suscription });
-
   return (
     <motion.div
       initial={{
