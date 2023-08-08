@@ -1,6 +1,6 @@
 import supabase from '@/lib/supabase';
 import useSessionStore from '@/store/useSessionStore';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Spinner from '@/components/Spinner';
 import { motion } from 'framer-motion';
 import useMovementsList from '@/store/useMovementsList';
@@ -13,7 +13,6 @@ export default function MovementsList() {
   const { movementsList, setMovementsList } = useMovementsList(
     (state) => state,
   );
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     (async () => {
@@ -43,16 +42,11 @@ export default function MovementsList() {
   }
 
   return (
-    <section className="py-4 flex flex-col gap-4" ref={containerRef}>
+    <section className="py-4 flex flex-col gap-4">
       {movementsList.length ? (
         <>
           {movementsList.map((movement, id) => (
-            <SingleMovement
-              key={movement.id}
-              movement={movement}
-              ref={containerRef as any}
-              id={id}
-            />
+            <SingleMovement key={movement.id} movement={movement} id={id} />
           ))}
         </>
       ) : (

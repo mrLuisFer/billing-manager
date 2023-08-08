@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import supabase from '@/lib/supabase';
 import useSessionStore from '@/store/useSessionStore';
 import useSuscriptionsList from '@/store/useSuscriptionsList';
+import Spinner from '@/components/Spinner';
 import InputCard from '../../../creditCards/AddCard/InputCard';
 import InputSelect from '../../../creditCards/AddCard/InputSelect';
 import iconsList from '../iconsList';
@@ -27,6 +28,7 @@ export default function SuscriptionsForm({
 }) {
   const [movementIcon, setMovementIcon] = useState<string>('');
   const [statusValue, setStatusValue] = useState('');
+  const [isLoadingForm, setIsLoadingForm] = useState(false);
   const session = useSessionStore((state) => state.session);
   const { setSuscriptionsList, suscriptionsList } = useSuscriptionsList(
     (state) => state,
@@ -47,6 +49,7 @@ export default function SuscriptionsForm({
   });
 
   const onSubmit = async (data: ISuscriptionSchema) => {
+    setIsLoadingForm(true);
     const suscriptionResponse = await supabase.from('suscriptions').insert({
       name: data.name,
       count: data.count,
@@ -60,8 +63,9 @@ export default function SuscriptionsForm({
       return;
     }
 
-    reset();
+    setIsLoadingForm(false);
     setActiveActionsModal(false);
+    reset();
   };
 
   supabase
@@ -173,10 +177,13 @@ export default function SuscriptionsForm({
             setActiveActionsModal(false);
             reset();
           }}
+          disabled={isLoadingForm}
         >
           Cancelar
         </Button>
-        <Button type="submit">Agregar movimiento</Button>
+        <Button type="submit" disabled={isLoadingForm}>
+          {isLoadingForm ? <Spinner /> : 'Agregar movimiento'}
+        </Button>
       </motion.div>
     </form>
   );
